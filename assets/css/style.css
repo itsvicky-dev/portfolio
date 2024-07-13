@@ -888,7 +888,12 @@ footer {
         opacity: 0.1;
     }
 }
-
+@media screen and (max-width:665px) {
+    form input,
+    form textarea {
+        width: auto;
+    }
+}
 @media screen and (max-width:1079px) {
     #home {
         margin-left: 15px;
@@ -934,11 +939,6 @@ footer {
 
     #contact {
         padding: 2rem 1rem 2rem 1rem;
-    }
-
-    form input,
-    form textarea {
-        width: auto;
     }
 }
 
