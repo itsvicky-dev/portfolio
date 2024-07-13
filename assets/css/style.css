@@ -689,6 +689,15 @@ body {
     width: 50vw;
 }
 
+.contact-full {
+    height: 100vh
+}
+
+.contact-container {
+    width: 55vw;
+    margin-top: calc(100vh - 570px);
+}
+
 form {
     max-width: 600px;
     margin: auto;
@@ -917,14 +926,11 @@ footer {
         height: 60vh;
     }
 
-    .contact-full{
+    .contact-full {
         height: 100vh
     }
-    
-    .contact-container {
-        width: 55vw;
-        margin-top: calc(100vh - 570px);
-    }
+
+
 
     #contact {
         padding: 2rem 1rem 2rem 1rem;
