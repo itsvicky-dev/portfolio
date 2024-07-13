@@ -916,9 +916,13 @@ footer {
         width: 65%;
     }
 
+    contact-full{
+        height: 100vh
+    }
+    
     .contact-container {
         width: 55vw;
-        margin-top: 70px;
+        margin-top: calc(100vh - 570px);
     }
 
     #contact {
