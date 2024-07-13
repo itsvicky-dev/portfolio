@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".nav a").forEach((item) => {
     item.addEventListener("click", function (event) {
-
       document.querySelectorAll(".nav a").forEach((link) => {
         link.classList.remove("active");
       });
@@ -58,6 +57,50 @@ document.addEventListener("DOMContentLoaded", () => {
       this.classList.add("active");
     });
   });
+
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(this);
+
+      // Send form data using Fetch API or XMLHttpRequest
+      fetch("https://formspree.io/f/mzzpzely", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          Toastify({
+            text: "Message sent successfully!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#4caf50",
+          }).showToast();
+          this.reset();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Toastify({
+            text: "Failed to send message. Please try again later.",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#f44336",
+          }).showToast();
+        });
+    });
 
   type();
 
