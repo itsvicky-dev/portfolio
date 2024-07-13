@@ -554,12 +554,12 @@ body {
 
 .swiper-slide--one {
     background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-        url("/assets//Images/project-img-1.jpg") no-repeat 50% 50% / cover;
+        url("Images/project-img-1.jpg") no-repeat 50% 50% / cover;
 }
 
 .swiper-slide--two {
     background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-        url("/assets//Images/project-img-2.jpg") no-repeat 50% 50% / cover;
+        url("Images/project-img-2.jpg") no-repeat 50% 50% / cover;
 }
 
 .swiper-slide--three {
@@ -569,12 +569,12 @@ body {
 
 .swiper-slide--four {
     background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-        url("/assets//Images/project-img-4.jpg") no-repeat 50% 50% / cover;
+        url("Images/project-img-4.jpg") no-repeat 50% 50% / cover;
 }
 
 .swiper-slide--five {
     background: linear-gradient(to top, #0f2027, #203a4300, #2c536400),
-        url("/assets//Images/project-img-5.jpg") no-repeat 50% 50% / cover;
+        url("Images/project-img-5.jpg") no-repeat 50% 50% / cover;
 }
 
 .swiper-3d .swiper-slide-shadow-left,
