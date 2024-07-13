@@ -43,8 +43,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       path.addEventListener("mouseleave", () => {
-        path.style.fill = ""; // Reset to original color or define a specific one
+        path.style.fill = "";
       });
+    });
+  });
+
+  document.querySelectorAll(".nav a").forEach((item) => {
+    item.addEventListener("click", function (event) {
+
+      document.querySelectorAll(".nav a").forEach((link) => {
+        link.classList.remove("active");
+      });
+
+      this.classList.add("active");
     });
   });
 
