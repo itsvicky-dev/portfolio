@@ -914,6 +914,7 @@ footer {
     .project-content {
         margin: 175px 0 45px 0;
         width: 65%;
+        height: 60vh;
     }
 
     .contact-full{
