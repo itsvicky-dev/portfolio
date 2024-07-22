@@ -48,6 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  function updateActiveLink() {
+    const currentHash = window.location.hash || "#home";
+    document.querySelectorAll(".nav a").forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === currentHash) {
+        link.classList.add("active");
+      }
+    });
+  }
+
   document.querySelectorAll(".nav a").forEach((item) => {
     item.addEventListener("click", function (event) {
       document.querySelectorAll(".nav a").forEach((link) => {
@@ -102,43 +112,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-  type();
+  function scrollLeft() {
+    const row = document.querySelector(".project-content .row");
+    row.scrollBy({
+      left: -200, // Adjust this value to control the scroll distance
+      behavior: "smooth",
+    });
+    checkScroll();
+  }
 
-  var swiper = new Swiper(".swiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    coverflowEffect: {
-      rotate: 0,
-      stretch: 0,
-      depth: 100,
-      modifier: 3,
-      slideShadows: true,
-    },
-    keyboard: {
-      enabled: true,
-    },
-    mousewheel: {
-      thresholdDelta: 70,
-    },
-    loop: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      640: {
-        slidesPerView: 2,
-      },
-      768: {
-        slidesPerView: 1,
-      },
-      1024: {
-        slidesPerView: 2,
-      },
-      1560: {
-        slidesPerView: 3,
-      },
-    },
-  });
+  function scrollRight() {
+    const row = document.querySelector(".project-content .row");
+    row.scrollBy({
+      left: 200, // Adjust this value to control the scroll distance
+      behavior: "smooth",
+    });
+    checkScroll();
+  }
+
+  function checkScroll() {
+    const row = document.querySelector(".project-content .row");
+    const prevButton = document.querySelector("button.prev");
+    const nextButton = document.querySelector("button.next");
+
+    // Disable prev button if at start
+    if (row.scrollLeft === 0) {
+      prevButton.disabled = true;
+    } else {
+      prevButton.disabled = false;
+    }
+
+    // Disable next button if at end
+    if (row.scrollWidth - row.clientWidth - row.scrollLeft <= 1) {
+      nextButton.disabled = true;
+    } else {
+      nextButton.disabled = false;
+    }
+  }
+
+  document.querySelector("button.prev").addEventListener("click", scrollLeft);
+  document.querySelector("button.next").addEventListener("click", scrollRight);
+
+  document.addEventListener("DOMContentLoaded", checkScroll);
+  window.addEventListener("resize", checkScroll);
+  
+  updateActiveLink();
+  type();
 });
