@@ -142,18 +142,10 @@ body {
     will-change: transform;
 }
 
-@supports (-webkit-text-stroke: 3px #000) or (text-stroke: 3px #000) {
-    .item-text {
-        -webkit-text-stroke: 3px #000;
-        text-stroke: 3px #000;
-        color: #000;
-    }
-}
-
 .item-text {
     font-family: 'Druk' !important;
     position: relative;
-    color: #ffffff;
+    color: #ffffff; /* Text color */
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 900;
@@ -163,6 +155,17 @@ body {
     letter-spacing: .02em;
     line-height: .9em;
     transition: color .5s, opacity .5s;
+}
+.item-text.stroke {
+    color: #000;
+}
+
+@supports (-webkit-text-stroke: 3px #000) or (text-stroke: 3px #000) {
+    .item-text {
+        -webkit-text-stroke: 3px #ffffff;
+        text-stroke: 3px #ffffff;
+        color: #000000;
+    }
 }
 
 /* Parallax Effect */
@@ -183,6 +186,7 @@ body {
 
 .home-content {
     position: fixed;
+    z-index: 99999;
 }
 
 .home-content h1 {
@@ -455,7 +459,7 @@ body {
     opacity: 1;
 }
 
-.overlay a {
+.overlay .explore-btn {
     font-weight: 600;
     color: #fff;
     border: 1px solid #fff;
@@ -464,9 +468,20 @@ body {
     border-radius: 10px;
 }
 
-.overlay a:hover {
+.overlay .explore-btn:hover {
     background-color: #fff;
     color: #000;
+}
+
+.overlay a{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 10px ;
+}
+
+.overlay a:hover{
+   text-decoration: underline;
 }
 
 button.prev,
@@ -490,38 +505,6 @@ button.prev {
 button.next {
     right: 0;
 }
-
-/* Responsive layout - adjust column width for smaller screens */
-@media screen and (max-width: 800px) {
-    .column {
-        width: 200px;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .column {
-        width: 150px;
-    }
-}
-
-
-/* Responsive layout - adjust column width for smaller screens */
-@media screen and (max-width: 800px) {
-    .column {
-        width: 200px;
-        /* Adjust width as needed */
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .column {
-        width: 150px;
-        /* Adjust width as needed */
-    }
-}
-
-
-
 
 /* Experience Section */
 #experience {
@@ -744,7 +727,7 @@ footer {
     color: #fff;
     padding: 10px 20px;
     margin-bottom: 20px;
-    animation: scrollText 7s linear infinite;
+    animation: scrollText 15s linear infinite;
     transform: translateY(0);
 }
 
@@ -763,7 +746,7 @@ footer {
     }
 
     100% {
-        transform: translateY(-60%);
+        transform: translateY(-70%);
     }
 }
 
@@ -890,5 +873,24 @@ footer {
 
     .viewport-container {
         top: 70px;
+    }
+}
+
+/* Responsive layout - adjust column width for smaller screens */
+@media screen and (max-width: 800px) {
+    .column {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 150px;
+    }
+    .project-content {
+        width: 55%;
+    }
+    #projects {
+        padding-top: 200px;
     }
 }
