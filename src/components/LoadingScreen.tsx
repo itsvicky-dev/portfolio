@@ -52,7 +52,7 @@ const LoadingScreen = () => {
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '43rem',
+            maxWidth: '52vw',
             padding: '0 2rem',
           }}
         >
