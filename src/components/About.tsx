@@ -122,7 +122,7 @@ const About: React.FC = () => {
           <SectionTitle
             title="Engineering & Development"
             icon={<Code style={{ width: 24, height: 24, color: '#2196f3' }} />}
-            link={{ text: 'View Github', url: 'https://github.com' }}
+            link={{ text: 'View Github', url: 'https://github.com/vigneswariCoder' }}
           />
           <Typography variant="body1" sx={{ pl: 4, lineHeight: 1.8 }}>
           As a software engineer, I have had the opportunity to work on over 15 projects, both within an organization and independently, where I focused on developing intuitive, user-friendly interfaces that streamline workflows and enhance user experiences. With a strong foundation in React, Java Spring Boot, MongoDB and MySQL, I have contributed to building high-performance applications that meet both technical and business requirements. I am committed to continuous growth, currently expanding my expertise in modern design practices and development methodologies to stay ahead in an ever-evolving industry.
