@@ -10,11 +10,12 @@ interface ProjectCardProps {
     icon: LucideIcon;
     variant: 'primary' | 'white' | 'dark' | 'accent' | 'green' | 'blue';
     className?: string;
+    link: string
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, icon: Icon, variant, className = '' }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, icon: Icon, variant, link, className = '' }) => {
     return (
-        <div className={`card ${variant} ${className}`}>
+        <a href={link} target="_blank" style={{ textDecoration: 'none', color: 'inherit' }} rel="noopener noreferrer" className={`card ${variant} ${className}`}>
             <div className="card-content">
                 <div className="header">
                     <h2>{title}</h2>
@@ -22,7 +23,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, icon: Ico
                 </div>
                 <p className="description">{description}</p>
             </div>
-        </div>
+        </a>
     );
 }
 
@@ -115,17 +116,15 @@ function App() {
                 </motion.div>
                 <div className="grid">
                     {projects.map((project, index) => (
-                        <a href={project.link} key={index} target="_blank" style={{ textDecoration: 'none' , color: 'inherit'}} rel="noopener noreferrer">
-                            <ProjectCard
-                                key={index}
-                                {...project}
-                                className={index === 0 ? 'large-row' : index === 3 ? 'large-col' : ''}
-                            />
-                        </a>
+                        <ProjectCard
+                            key={index}
+                            {...project}
+                            className={index === 0 ? 'large-row' : index === 3 ? 'large-col' : ''}
+                        />
                     ))}
                 </div>
             </Box>
-        </Box>
+        </Box >
     );
 }
 
