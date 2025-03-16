@@ -152,7 +152,7 @@ const Contact: React.FC = () => {
                     <Mail style={{ color: '#34d399', marginRight: 2 }} />
                     <Typography
                       component="a"
-                      href="mailto:vigneswaris2002@gmail.com"
+                      href="mailto:vigneswari.coder@gmail.com"
                       sx={{
                         backgroundImage: 'linear-gradient(to right, #34d399, #3b82f6)',
                         backgroundClip: 'text',
@@ -177,7 +177,7 @@ const Contact: React.FC = () => {
                         },
                       }}
                     >
-                      vigneswaris2002@gmail.com
+                      vigneswari.coder@gmail.com
                     </Typography>
                   </Box>
 
