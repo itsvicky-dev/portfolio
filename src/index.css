@@ -397,7 +397,7 @@ body {
 
 @media screen and (max-width: 600px) {
   .highlights-cards {
-    max-width: 93vw;
+    max-width: 92vw;
   }
 
   .grid {
