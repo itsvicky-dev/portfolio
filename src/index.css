@@ -342,6 +342,10 @@ body {
     grid-row: auto;
   }
 
+  .skills-grid {
+    margin: auto 15px !important;
+  }
+
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
@@ -391,6 +395,22 @@ body {
   }
 }
 
+@media screen and (max-width: 600px) {
+  .highlights-cards {
+    max-width: 93vw;
+  }
+
+  .grid {
+    grid-template-columns: auto !important;
+  }
+
+  .card.large-row,
+  .card.large-col {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .custom-cursor {
     display: none !important;
@@ -404,16 +424,8 @@ body {
     height: calc(100% + 24rem) !important;
   }
 
-  .skills-grid {
-    margin: auto 15px !important;
-  }
-
   #highlights {
     background: radial-gradient(circle at center, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2), #000 95%);
-  }
-
-  .highlights-cards {
-    width: 340px;
   }
 
   .highlights-title {
@@ -429,15 +441,5 @@ body {
 
   .hero-title {
     font-size: 2rem !important;
-  }
-
-  .grid {
-    grid-template-columns: auto !important;
-  }
-
-  .card.large-row,
-  .card.large-col {
-    grid-column: auto !important;
-    grid-row: auto !important;
   }
 }
