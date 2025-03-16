@@ -126,7 +126,7 @@ const About: React.FC = () => {
             link={{ text: 'View Github', url: 'https://github.com/vigneswariCoder' }}
           />
           <Typography variant="body1" sx={{ pl: 4, lineHeight: 1.8 }}>
-            As a software engineer, I have had the opportunity to work on over 15 projects, both within an organization and independently, where I focused on developing intuitive, user-friendly interfaces that streamline workflows and enhance user experiences. With a strong foundation in React, Java Spring Boot, MongoDB and MySQL, I have contributed to building high-performance applications that meet both technical and business requirements. I am committed to continuous growth, currently expanding my expertise in modern design practices and development methodologies to stay ahead in an ever-evolving industry.
+          As a software engineer, I have worked on over 15 projects, both within an organization and independently, focusing on developing intuitive, user-friendly interfaces that streamline workflows and enhance user experiences. With a strong foundation in MERN Stack (MongoDB, Express.js, React, Node.js), Java Spring Boot, and MySQL, I have contributed to building high-performance applications that meet both technical and business requirements. I am committed to continuous growth, currently expanding my expertise in modern design practices and development methodologies to stay ahead in an ever-evolving industry.
           </Typography>
         </Section>
 
