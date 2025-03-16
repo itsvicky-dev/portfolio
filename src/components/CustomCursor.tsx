@@ -19,7 +19,7 @@ export default function CustomCursor() {
   }, []);
 
   return (
-    <>
+    <div className='custom-cursor'>
       <motion.div
         className="custom-cursor-dot"
         style={{
@@ -60,6 +60,6 @@ export default function CustomCursor() {
           rotate: 80, // Apply a rotation
         }}
       />
-    </>
+    </div>
   );
 }

@@ -3,6 +3,7 @@ import { Code2, Palette, Database, Globe2, Brain, Shield, Cpu, Cloud, Terminal, 
 import { LucideIcon } from 'lucide-react';
 import { Typography, Box } from '@mui/material';
 import { motion } from 'framer-motion';
+import { dark } from '@mui/material/styles/createPalette';
 
 interface ProjectCardProps {
     title: string;
@@ -17,11 +18,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, icon: Ico
     return (
         <a href={link} target="_blank" style={{ textDecoration: 'none', color: 'inherit' }} rel="noopener noreferrer" className={`card ${variant} ${className}`}>
             <div className="card-content">
-                <div className="header">
+                <div className={`header ${variant == 'dark' && "text-white"}`}>
                     <h2>{title}</h2>
                     <Icon className="icon" />
                 </div>
-                <p className="description">{description}</p>
+                <p className={`description ${variant == 'dark' && "text-white"}`}>{description}</p>
             </div>
         </a>
     );

@@ -195,7 +195,7 @@ export default function SkillsSection() {
 
         <Grid container spacing={3} justifyContent="center">
           {skills.map((skill, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid className='skills-grid' item xs={12} sm={6} md={4} key={index}>
               <SkillCard {...skill} index={index} />
             </Grid>
           ))}

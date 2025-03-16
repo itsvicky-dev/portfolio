@@ -23,8 +23,10 @@ function HighlightCard({ icon: Icon, title, description, gradient, index }: High
         overflow: 'hidden',
         border: '1px solid #3b82f6'
       }}
+      className='highlights-cards'
     >
       <div
+        // className='highlights-cards'
         style={{
           position: 'absolute',
           inset: '0.5px',
@@ -89,6 +91,7 @@ function HighlightCard({ icon: Icon, title, description, gradient, index }: High
             >
               <Icon style={{ width: '32px', height: '32px', color: 'white' }} />
               <motion.h3
+              className='highlights-title'
                 style={{
                   margin: '0 10px',
                   fontSize: '24px',
@@ -164,8 +167,8 @@ const highlights = [
 
 export default function HighlightsSection() {
   return (
-    <Box id='highlights' sx={{paddingBottom: '100px', position: 'relative', backgroundColor: '#2a2a2a !important', background: 'radial-gradient(ellipse at bottom, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2), #000 70%)', overflow: 'hidden' }}>
-      <div style={{  position: 'relative', zIndex: 10, margin: '0 auto', maxWidth: '1200px', padding: '0 16px' }}>
+    <Box id='highlights' sx={{ paddingBottom: '100px', position: 'relative', backgroundColor: '#2a2a2a !important', background: 'radial-gradient(ellipse at bottom, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2), #000 70%)', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', zIndex: 10, margin: '0 auto', maxWidth: '1200px', padding: '0 16px' }}>
         <motion.div
           style={{ maxWidth: '768px', margin: '0 auto', textAlign: 'center', marginBottom: '80px' }}
           initial={{ opacity: 0, y: 20 }}

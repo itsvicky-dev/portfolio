@@ -21,6 +21,7 @@ const Section = ({
       <Box>{children}</Box>
       {!isLast && (
         <Divider
+          className='about-line'
           orientation="vertical"
           sx={{
             position: 'absolute',
@@ -125,7 +126,7 @@ const About: React.FC = () => {
             link={{ text: 'View Github', url: 'https://github.com/vigneswariCoder' }}
           />
           <Typography variant="body1" sx={{ pl: 4, lineHeight: 1.8 }}>
-          As a software engineer, I have had the opportunity to work on over 15 projects, both within an organization and independently, where I focused on developing intuitive, user-friendly interfaces that streamline workflows and enhance user experiences. With a strong foundation in React, Java Spring Boot, MongoDB and MySQL, I have contributed to building high-performance applications that meet both technical and business requirements. I am committed to continuous growth, currently expanding my expertise in modern design practices and development methodologies to stay ahead in an ever-evolving industry.
+            As a software engineer, I have had the opportunity to work on over 15 projects, both within an organization and independently, where I focused on developing intuitive, user-friendly interfaces that streamline workflows and enhance user experiences. With a strong foundation in React, Java Spring Boot, MongoDB and MySQL, I have contributed to building high-performance applications that meet both technical and business requirements. I am committed to continuous growth, currently expanding my expertise in modern design practices and development methodologies to stay ahead in an ever-evolving industry.
           </Typography>
         </Section>
 
@@ -133,10 +134,10 @@ const About: React.FC = () => {
           <SectionTitle
             title="Certifications & Training"
             icon={<Package style={{ width: 24, height: 24, color: '#9c27b0' }} />}
-            // link={{ text: 'View Certifications', url: '#' }}
+          // link={{ text: 'View Certifications', url: '#' }}
           />
           <Typography variant="body1" sx={{ pl: 4, lineHeight: 1.8 }}>
-            I hold certifications in PHP, which have allowed me to deepen my understanding of backend development and create more robust and scalable systems. Along with my technical certifications, I am actively pursuing internal training programs within my organization, focusing on both UI/UX design and development. This combination of training and hands-on experience allows me to approach projects with a holistic perspective, ensuring both the functionality and visual appeal of the applications I work on.
+            I hold certifications in Meta Front-End Developer Professional Certificate, IBM Full-Stack JavaScript Developer Professional Certificate and CK-Edge Full-Stack PHP Certificate, which have allowed me to deepen my understanding of both frontend and backend development, enabling me to create more robust and scalable systems.This combination of training and hands-on experience allows me to approach projects with a holistic perspective, ensuring both the functionality and visual appeal of the applications I work on.
           </Typography>
         </Section>
 
@@ -144,7 +145,7 @@ const About: React.FC = () => {
           <SectionTitle
             title="Design & User Experience"
             icon={<Paintbrush style={{ width: 24, height: 24, color: '#4caf50' }} />}
-            // link={{ text: 'View Design Work', url: '#' }}
+          // link={{ text: 'View Design Work', url: '#' }}
           />
           <Typography variant="body1" sx={{ pl: 4, lineHeight: 1.8 }}>
             My journey in design and development has led me to hone my skills in crafting user-centric, visually appealing interfaces. Although my focus is on building functional systems, I understand the importance of a seamless and engaging user experience. I’m committed to creating designs that are both aesthetically pleasing and intuitive, ensuring that each application I develop is optimized for ease of use, performance, and overall user satisfaction.

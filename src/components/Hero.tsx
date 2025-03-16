@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
                 textAlign: 'left',
               }}
             >
-              <Grid container spacing={2}>
+              <Grid container spacing={2} className='hero-grid'>
                 <Grid item xs={12} md={10}>
                   <Box >
                     {/* Greeting */}
@@ -70,6 +70,7 @@ const Hero: React.FC = () => {
                     >
                       <Typography
                         variant="h2"
+                        className='hero-name'
                         sx={{
                           fontWeight: 'bold',
                           color: 'white',
@@ -89,6 +90,7 @@ const Hero: React.FC = () => {
                     >
                       <Typography
                         variant="h4"
+                        className='hero-desc'
                         sx={{
                           color: '#cccccc',
                           mb: 4,
@@ -253,6 +255,7 @@ const Hero: React.FC = () => {
 
                   {/* Code Snippet Decoration */}
                   <Box
+                    className='code-snippet'
                     sx={{
                       position: "absolute",
                       top: "55%",
