@@ -27,6 +27,12 @@ const Contact: React.FC = () => {
     message: '',
   });
 
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +41,37 @@ const Contact: React.FC = () => {
       ...formData,
       [name]: value,
     });
+    // Clear the error message when the user starts typing
+    setErrors({
+      ...errors,
+      [name]: '',
+    });
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { name: '', email: '', message: '' };
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+      isValid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+      isValid = false;
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,6 +79,11 @@ const Contact: React.FC = () => {
 
     // Prevent submitting if already submitting
     if (isSubmitting) return;
+
+    // Validate form fields
+    if (!validateForm()) {
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -246,6 +288,8 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       name="name"
+                      error={!!errors.name}
+                      helperText={errors.name}
                     />
                   </Box>
                   <Box sx={{ mb: 3 }}>
@@ -276,6 +320,8 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       name="email"
+                      error={!!errors.email}
+                      helperText={errors.email}
                     />
                   </Box>
                   <Box sx={{ mb: 3 }}>
@@ -308,6 +354,8 @@ const Contact: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       name="message"
+                      error={!!errors.message}
+                      helperText={errors.message}
                     />
                   </Box>
                   <Button
@@ -315,6 +363,7 @@ const Contact: React.FC = () => {
                     type="submit"
                     variant="contained"
                     color="primary"
+                    className='submit-btn'
                     disabled={isSubmitting}
                     sx={{
                       bgcolor: '#34d399',
