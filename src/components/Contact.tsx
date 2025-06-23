@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Github, Linkedin, Send, MapPin, Phone, Calendar, Star, Sparkles } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, MapPin } from 'lucide-react';
 import {
   Box,
   Container,
@@ -10,8 +10,6 @@ import {
   TextField,
   Button,
   Card,
-  CardContent,
-  IconButton,
 } from '@mui/material';
 import { toast } from 'react-toastify';
 

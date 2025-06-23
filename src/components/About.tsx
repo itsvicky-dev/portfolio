@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Typography, Grid, Card, CardContent, Divider, Chip } from '@mui/material';
-import { Code, Package, Paintbrush, ExternalLink, Sparkles, Trophy, Target, Zap, ArrowRight, TrendingUp, Award, Globe, Users, Lightbulb } from 'lucide-react';
+import { Box, Typography, Grid, Card, Divider, Chip } from '@mui/material';
+import { Code, Trophy, Target, Zap, TrendingUp, Award, Globe, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Professional Timeline Component
@@ -218,122 +218,6 @@ const ProfessionalStatsPanel = () => {
   );
 };
 
-// Professional Expertise Card
-const ExpertiseCard = ({
-  icon,
-  title,
-  description,
-  technologies,
-  index
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  technologies: string[];
-  index: number;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.15, duration: 0.6 }}
-    whileHover={{ y: -8 }}
-  >
-    <Card
-      sx={{
-        background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(25, 25, 25, 0.8))',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '20px',
-        p: 4,
-        height: '100%',
-        position: 'relative',
-        overflow: 'hidden',
-        '&:hover': {
-          border: '1px solid rgba(52, 211, 153, 0.3)',
-          boxShadow: '0 25px 50px rgba(52, 211, 153, 0.1)',
-        },
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}
-    >
-      {/* Subtle gradient overlay */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '100px',
-          background: 'linear-gradient(135deg, rgba(52, 211, 153, 0.03), rgba(59, 130, 246, 0.03))',
-          borderRadius: '20px 20px 0 0',
-        }}
-      />
-
-      <Box sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          sx={{
-            color: '#34d399',
-            mb: 3,
-            p: 2,
-            background: 'rgba(52, 211, 153, 0.1)',
-            borderRadius: '16px',
-            display: 'inline-flex',
-            border: '1px solid rgba(52, 211, 153, 0.2)',
-          }}
-        >
-          {icon}
-        </Box>
-
-        <Typography
-          variant="h6"
-          sx={{
-            color: 'white',
-            fontWeight: 700,
-            mb: 3,
-            fontSize: '1.4rem',
-          }}
-        >
-          {title}
-        </Typography>
-
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'rgba(255, 255, 255, 0.75)',
-            lineHeight: 1.7,
-            mb: 4,
-          }}
-        >
-          {description}
-        </Typography>
-
-        <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', mb: 3 }} />
-
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {technologies.map((tech, idx) => (
-            <Chip
-              key={idx}
-              label={tech}
-              size="small"
-              sx={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                color: 'rgba(255, 255, 255, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                fontSize: '0.75rem',
-                '&:hover': {
-                  background: 'rgba(52, 211, 153, 0.1)',
-                  color: '#34d399',
-                  border: '1px solid rgba(52, 211, 153, 0.3)',
-                },
-              }}
-            />
-          ))}
-        </Box>
-      </Box>
-    </Card>
-  </motion.div>
-);
-
 // About Component
 const About: React.FC = () => {
   const timelineData = [
@@ -360,27 +244,6 @@ const About: React.FC = () => {
       duration: '10+ Projects',
       description: 'Developed intuitive, user-friendly interfaces and full-stack applications that streamline workflows and enhance user experiences. Focus on modern tech stack and performance optimization.',
       skills: ['MERN Stack', 'UI/UX Design', 'Performance Optimization', 'Client Relations']
-    }
-  ];
-
-  const expertiseAreas = [
-    {
-      icon: <Code size={28} />,
-      title: 'Full-Stack Development',
-      description: 'End-to-end application development with modern frameworks and architectures, focusing on scalable and maintainable solutions.',
-      technologies: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'TypeScript']
-    },
-    {
-      icon: <Globe size={28} />,
-      title: 'Enterprise Solutions',
-      description: 'Building robust enterprise applications with Java Spring Boot, implementing complex business logic and database management.',
-      technologies: ['Java', 'Spring Boot', 'MySQL', 'REST APIs', 'Microservices']
-    },
-    {
-      icon: <Lightbulb size={28} />,
-      title: 'UI/UX Engineering',
-      description: 'Creating intuitive user interfaces with modern design principles, ensuring optimal user experience and accessibility.',
-      technologies: ['Material-UI', 'Responsive Design', 'Framer Motion', 'CSS3', 'User Research']
     }
   ];
 

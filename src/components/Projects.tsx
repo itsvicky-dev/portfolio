@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Code2, Palette, Database, Globe2, Brain, Shield, Cpu, Cloud, Terminal, Headphones, Monitor, User, Server, Code, Calendar, ExternalLink, Github, Play, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Globe2, Headphones, User, ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Typography, Box } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 
