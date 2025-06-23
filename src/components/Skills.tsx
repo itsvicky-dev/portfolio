@@ -145,33 +145,11 @@ const techStacks = {
       )
     },
     {
-      name: 'PostgreSQL',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-          alt="PostgreSQL"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
       name: 'MongoDB',
       icon: (
         <img
           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
           alt="MongoDB"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Redis',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg"
-          alt="Redis"
           width={32}
           height={32}
         />
@@ -202,11 +180,11 @@ const techStacks = {
       )
     },
     {
-      name: 'AWS',
+      name: 'Azure',
       icon: (
         <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg"
-          alt="AWS"
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"
+          alt="Azure"
           width={32}
           height={32}
         />
