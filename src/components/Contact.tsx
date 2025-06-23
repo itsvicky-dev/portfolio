@@ -274,7 +274,7 @@ const Contact: React.FC = () => {
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 2 }}>
                   {[
-                    { icon: Github, href: 'https://github.com/vigneswariCoder', color: '#fff' },
+                    { icon: Github, href: 'https://github.com/itsvicky-dev', color: '#fff' },
                     { icon: Linkedin, href: 'https://www.linkedin.com/in/vigneswaris', color: '#0077b5' },
                     { icon: Mail, href: 'mailto:vigneswari.coder@gmail.com', color: '#34d399' },
                   ].map(({ icon: Icon, href, color }, index) => (

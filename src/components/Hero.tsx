@@ -220,7 +220,7 @@ const Hero: React.FC = () => {
                 >
                   <Grid container justifyContent="left" spacing={1}>
                     {[
-                      { Icon: Github, href: 'https://github.com/vigneswariCoder', label: 'GitHub' },
+                      { Icon: Github, href: 'https://github.com/itsvicky-dev', label: 'GitHub' },
                       { Icon: Linkedin, href: 'https://linkedin.com/in/vigneswaris', label: 'LinkedIn' },
                       { Icon: Instagram, href: 'https://instagram.com/im_vi.ki', label: 'Instagram' },
                       { Icon: Mail, href: 'mailto:contact@vigneswaris2002@gmail.com', label: 'Email' },
@@ -293,7 +293,7 @@ const Hero: React.FC = () => {
                       target='_blank'
                       href="resume.pdf"
                     >
-                      Download Resume
+                      Check Out My Resume
                     </Button>
 
                     <Button
