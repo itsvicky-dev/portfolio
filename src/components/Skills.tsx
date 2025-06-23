@@ -66,7 +66,7 @@ const techStacks = {
       name: 'Tailwind CSS',
       icon: (
         <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
+          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
           alt="Tailwind CSS"
           width={32}
           height={32}
