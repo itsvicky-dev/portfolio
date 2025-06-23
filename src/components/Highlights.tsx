@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Users, Award, Zap, LucideIcon } from "lucide-react";
+import { Code, Users, Award, Zap } from "lucide-react";
 import { Box } from '@mui/material';
 
 interface HighlightCardProps {
-  icon: LucideIcon;
+  icon: React.ComponentType<{ style?: React.CSSProperties }>;
   title: string;
   description: string;
   gradient: string;

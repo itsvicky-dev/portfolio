@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Code2, Palette, Database, Globe2, Brain, Shield, Cpu, Cloud, Terminal, Headphones, Monitor, User, Server, Code, Calendar, ExternalLink, Github, Play, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
 import { Typography, Box } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Project {
     title: string;
     description: string;
-    icon: LucideIcon;
+    icon: React.ComponentType<{ size?: number | string; className?: string;[key: string]: any }>;
     image?: string;
     link: string;
     githubLink?: string;
@@ -55,11 +54,9 @@ const ProjectImage: React.FC<ProjectImageProps> = ({ project, index, isActive })
                 {/* Image Content */}
                 <div className="image-container">
                     {image ? (
-                        <img src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt={title} className="project-img" />
+                        <img src={image} alt={title} className="project-img" />
                     ) : (
-                        <div className="image-placeholder">
-                            <Icon size={64} className="placeholder-icon" />
-                        </div>
+                        <img src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt={title} className="project-img" />
                     )}
                     {/* <motion.div
                         className="image-overlay"
@@ -80,65 +77,65 @@ const ProjectImage: React.FC<ProjectImageProps> = ({ project, index, isActive })
 
 const projects = [
     {
-        title: 'E-commerce Platform',
-        description: 'A comprehensive e-commerce solution with advanced features like real-time inventory, payment integration, and admin analytics.',
+        title: 'Nuvue - Social Media Application',
+        description: 'Nuvue is a full-featured social media application inspired by platforms like Instagram, built to provide users with a seamless experience to post, share, comment, like, explore reels, and stories — all within a sleek and modern UI.',
         icon: Globe2,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/zestkart-frontend',
-        githubLink: 'https://github.com/vigneswariCoder/zestkart-frontend',
-        techStack: ['React', 'Redux', 'Spring Boot', 'MongoDB', 'JWT', 'Stripe'],
+        image: '/images/projects/nuvue.png',
+        link: 'https://nuvuelive.vercel.app/',
+        githubLink: 'https://github.com/itsvicky-dev/nuvue',
+        techStack: ['Next.js', 'Typescript', 'Redux', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Websocket'],
         category: 'Full-Stack Application'
     },
     {
-        title: 'Playpuse Music Platform',
-        description: 'An interactive music streaming interface with modern UI/UX design and responsive layouts for seamless music discovery.',
+        title: 'Chatio - Chat Application',
+        description: 'Chatio is a modern real-time chat application built with a clean UI. It supports one-to-one and group messaging, media sharing, and live chat features using WebSocket.',
+        icon: Globe2,
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        link: 'https://github.com/itsvicky-dev/chatio',
+        githubLink: 'https://github.com/itsvicky-dev/chatio',
+        techStack: ['React.js', 'Typescript', 'Redux', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Websocket'],
+        category: 'Full-Stack Application'
+    },
+    {
+        title: 'Zestkart - E-commerce Application',
+        description: 'A comprehensive e-commerce solution with advanced features like real-time inventory, payment integration, and admin analytics.',
+        icon: Globe2,
+        image: '/images/projects/zestkart.png',
+        link: 'https://github.com/itsvicky-dev/zestkart-frontend',
+        githubLink: 'https://github.com/itsvicky-dev/zestkart-frontend',
+        techStack: ['React', 'Redux', 'Spring Boot', 'MongoDB', 'JWT'],
+        category: 'Full-Stack Application'
+    },
+    {
+        title: 'Nextflix - Netflix UI Clone',
+        description: 'A sleek and responsive Netflix-inspired front-end clone built with Next.js, TypeScript (TSX), and Tailwind CSS. This project recreates the look and feel of Netflix/s user interface, including hero sections, movie carousels, and a clean dark theme — perfect for practicing modern web development with powerful tools.',
         icon: Headphones,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/playpuse',
-        githubLink: 'https://github.com/vigneswariCoder/playpuse',
+        image: '/images/projects/nextflix.png',
+        link: 'https://musify-music.onrender.com',
+        githubLink: 'https://github.com/itsvicky-dev/playpuse',
         techStack: ['React', 'Material-UI', 'CSS3', 'JavaScript', 'Responsive Design'],
         category: 'Frontend Application'
     },
     {
-        title: 'Admin Dashboard',
-        description: 'A comprehensive admin panel with data visualization, user management, and real-time analytics for business insights.',
-        icon: Monitor,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/admin-dashboard',
-        githubLink: 'https://github.com/vigneswariCoder/admin-dashboard',
-        techStack: ['React', 'TypeScript', 'Chart.js', 'Tailwind CSS', 'Data Visualization'],
-        category: 'Dashboard Application'
-    },
-    {
-        title: 'Portfolio Website',
-        description: 'A modern, responsive portfolio showcasing full-stack development skills with interactive animations and smooth user experience.',
+        title: 'Meal Memoirs Website',
+        description: 'A stunning and professional landing page for "Meal Memoirs," designed to captivate food enthusiasts. This responsive web application showcases elegant design, smooth animations, and interactive elements.',
         icon: User,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/portfolio',
-        githubLink: 'https://github.com/vigneswariCoder/portfolio',
+        image: '/images/projects/meal-memoirs.png',
+        link: 'https://meal-memoirs.onrender.com',
+        githubLink: 'https://github.com/itsvicky-dev/meal-memoirs',
         techStack: ['React', 'Framer Motion', 'TypeScript', 'Material-UI', 'Responsive Design'],
         category: 'Personal Portfolio'
     },
     {
-        title: 'Zestkart Backend API',
-        description: 'A robust REST API with microservices architecture, JWT authentication, and comprehensive documentation for scalable applications.',
-        icon: Server,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/zestkart-backend',
-        githubLink: 'https://github.com/vigneswariCoder/zestkart-backend',
-        techStack: ['Java', 'Spring Boot', 'MySQL', 'Docker', 'JWT', 'Microservices'],
-        category: 'Backend API'
+        title: 'Lumo Craft - Landing Page',
+        description: 'A sleek and modern landing page for a game development, showcasing games and updates. Built using React, TypeScript, and Vite for blazing-fast performance and scalability.',
+        icon: Headphones,
+        image: '/images/projects/lumocraft.png',
+        link: 'https://lumocraft.onrender.com',
+        githubLink: 'https://github.com/itsvicky-dev/lumo-craft',
+        techStack: ['React', 'Material-UI', 'CSS3', 'JavaScript', 'Responsive Design'],
+        category: 'Frontend Application'
     },
-    {
-        title: 'Hall Booking System',
-        description: 'A smart booking platform with calendar integration, payment processing, and automated notifications for efficient management.',
-        icon: Calendar,
-        image: '/api/placeholder/600/400',
-        link: 'https://github.com/vigneswariCoder/hall-booking',
-        githubLink: 'https://github.com/vigneswariCoder/hall-booking',
-        techStack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Calendar API', 'Payment Gateway'],
-        category: 'Booking Platform'
-    }
 ];
 
 
@@ -150,7 +147,7 @@ function Projects() {
     const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
     const isScrollingRef = useRef(false);
-    const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+    const scrollTimeoutRef = useRef<number>();
     const lastUpdateRef = useRef(0);
     const manualNavigationRef = useRef(false);
 
@@ -797,7 +794,7 @@ function Projects() {
                 .project-img {
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
+                    object-fit: inherit;
                     transition: transform 0.6s ease;
                 }
 

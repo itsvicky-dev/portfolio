@@ -43,7 +43,7 @@ const TimelineItem = ({
         }}
       />
     )}
-    
+
     <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 3, mb: 6 }}>
       {/* Timeline dot */}
       <motion.div
@@ -89,7 +89,7 @@ const TimelineItem = ({
             }}
           />
         </Box>
-        
+
         <Typography
           variant="subtitle1"
           sx={{
@@ -143,7 +143,7 @@ const TimelineItem = ({
 // Professional Stats Panel
 const ProfessionalStatsPanel = () => {
   const achievements = [
-    { label: 'Projects Delivered', value: '10+', icon: <Target size={20} />, color: '#34d399' },
+    { label: 'Projects Completed', value: '10+', icon: <Target size={20} />, color: '#34d399' },
     { label: 'Professional Certifications', value: '3', icon: <Award size={20} />, color: '#3b82f6' },
     { label: 'Years Experience', value: '2+', icon: <TrendingUp size={20} />, color: '#8b5cf6' },
     { label: 'Performance Boost', value: '40%', icon: <Zap size={20} />, color: '#f59e0b' },
@@ -268,7 +268,7 @@ const ExpertiseCard = ({
           borderRadius: '20px 20px 0 0',
         }}
       />
-      
+
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Box
           sx={{
@@ -283,7 +283,7 @@ const ExpertiseCard = ({
         >
           {icon}
         </Box>
-        
+
         <Typography
           variant="h6"
           sx={{
@@ -295,7 +295,7 @@ const ExpertiseCard = ({
         >
           {title}
         </Typography>
-        
+
         <Typography
           variant="body1"
           sx={{
@@ -306,9 +306,9 @@ const ExpertiseCard = ({
         >
           {description}
         </Typography>
-        
+
         <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', mb: 3 }} />
-        
+
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
           {technologies.map((tech, idx) => (
             <Chip
@@ -340,10 +340,10 @@ const About: React.FC = () => {
     {
       icon: <Trophy size={24} color="rgba(52, 211, 153, 1)" />,
       title: 'Junior Software Engineer',
-      subtitle: 'HEPL - Hybrid Enterprise Private Limited',
+      subtitle: 'HEPL - Hemas Enterprise Private Limited',
       duration: '2 Years',
       description: 'Led development of enterprise-level applications, collaborated with cross-functional teams, and implemented scalable solutions meeting business requirements and industry standards. Focused on full-stack development using modern technologies.',
-      skills: ['Java Spring Boot', 'React.js', 'MySQL', 'Enterprise Solutions', 'Team Collaboration']
+      skills: ['MERN Stack', 'UI/UX Design', 'React.js', 'Java Spring Boot', 'Team Collaboration']
     },
     {
       icon: <Award size={24} color="rgba(59, 130, 246, 1)" />,
@@ -429,7 +429,7 @@ const About: React.FC = () => {
           >
             Professional Profile
           </Typography>
-          
+
           <Typography
             variant="h2"
             sx={{
@@ -480,7 +480,7 @@ const About: React.FC = () => {
           >
             Professional Journey
           </Typography>
-          
+
           <Box sx={{ maxWidth: '900px', mx: 'auto' }}>
             {timelineData.map((item, index) => (
               <TimelineItem

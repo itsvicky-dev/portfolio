@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
           maxWidth={'xl'}
           sx={{
             zIndex: 10,
-            maxWidth: '1450px !important',
+            maxWidth: '1250px !important',
             textAlign: 'left',
             position: 'relative',
           }}
