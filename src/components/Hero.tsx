@@ -7,9 +7,9 @@ import LoadingScreen from './LoadingScreen';
 import GlowingOrbs from './GlowingOrbs';
 import { Code, LayoutDashboard, Rocket, Sparkles } from "lucide-react";
 
+const MotionBox = motion(Box);
 const Hero: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -261,10 +261,10 @@ const Hero: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0 }}
                 >
-                  <Box sx={{ 
-                    display: 'flex', 
+                  <Box sx={{
+                    display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row' },
-                    gap: { xs: 1.5, sm: 2 }, 
+                    gap: { xs: 1.5, sm: 2 },
                     mt: 4,
                     alignItems: { xs: 'stretch', sm: 'center' }
                   }}>
@@ -439,7 +439,7 @@ const Hero: React.FC = () => {
                   />
                 </motion.div>
 
-                <motion.div
+                <MotionBox
                   animate={{
                     y: [0, -8, 0],
                     scale: [1, 1.1, 1]
@@ -450,9 +450,9 @@ const Hero: React.FC = () => {
                     ease: "easeInOut",
                     delay: 1.5
                   }}
-                  style={{
+                  sx={{
                     position: "absolute",
-                    top: "-4rem",
+                    top: { xs: "-1rem", md: "-4rem" },
                     right: "12rem",
                   }}
                 >
@@ -463,7 +463,7 @@ const Hero: React.FC = () => {
                       height: "2.5rem",
                     }}
                   />
-                </motion.div>
+                </MotionBox>
 
                 <motion.div
                   animate={{

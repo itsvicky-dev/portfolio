@@ -139,6 +139,7 @@ const Contact: React.FC = () => {
         pb: 8,
         bgcolor: 'black',
         position: 'relative',
+        overflowX: 'hidden',
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>

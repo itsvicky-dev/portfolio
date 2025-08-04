@@ -86,28 +86,28 @@ const techStacks = {
     },
   ],
   Backend: [
-    {
-      name: 'Java',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-          alt="Java"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Spring Boot',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
-          alt="Spring Boot"
-          width={32}
-          height={32}
-        />
-      )
-    },
+    // {
+    //   name: 'Java',
+    //   icon: (
+    //     <img
+    //       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+    //       alt="Java"
+    //       width={32}
+    //       height={32}
+    //     />
+    //   )
+    // },
+    // {
+    //   name: 'Spring Boot',
+    //   icon: (
+    //     <img
+    //       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
+    //       alt="Spring Boot"
+    //       width={32}
+    //       height={32}
+    //     />
+    //   )
+    // },
     {
       name: 'Node.js',
       icon: (

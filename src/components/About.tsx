@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Grid, Card, Divider, Chip } from '@mui/material';
 import { Code, Trophy, Target, Zap, TrendingUp, Award, Globe, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+const MotionBox = motion(Box);
 // Professional Timeline Component
 const TimelineItem = ({
   icon,
@@ -35,8 +35,8 @@ const TimelineItem = ({
       <Box
         sx={{
           position: 'absolute',
-          left: '31px',
-          top: '64px',
+          left: { xs: '20px', md: '31px' }, // match icon center
+          top: { xs: '52px', md: '64px' },
           bottom: '-40px',
           width: '2px',
           background: 'linear-gradient(to bottom, rgba(52, 211, 153, 0.5), rgba(52, 211, 153, 0.1))',
@@ -46,11 +46,11 @@ const TimelineItem = ({
 
     <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 3, mb: 6 }}>
       {/* Timeline dot */}
-      <motion.div
+      <MotionBox
         whileHover={{ scale: 1.1 }}
-        style={{
-          minWidth: '64px',
-          height: '64px',
+        sx={{
+          minWidth: {xs:'40px','md':'64px'},
+          height: {xs:'40px','md':'64px'},
           background: 'linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(59, 130, 246, 0.2))',
           borderRadius: '50%',
           display: 'flex',
@@ -63,7 +63,7 @@ const TimelineItem = ({
         }}
       >
         {icon}
-      </motion.div>
+      </MotionBox>
 
       {/* Content */}
       <Box sx={{ flex: 1 }}>
@@ -222,23 +222,51 @@ const ProfessionalStatsPanel = () => {
 const About: React.FC = () => {
   const timelineData = [
     {
-      icon: <Trophy size={24} color="rgba(52, 211, 153, 1)" />,
-      title: 'Junior Software Engineer',
+      icon: (
+        <Box
+          sx={{
+            fontSize: { xs: 20, md: 24 },
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Trophy size="1em" color="rgba(52, 211, 153, 1)" />
+        </Box>
+      ),
+      title: 'Jr Software Engineer',
       subtitle: 'HEPL - Hemas Enterprise Private Limited',
-      duration: '2 Years',
+      duration: '2.5 Years',
       description: 'Led development of enterprise-level applications, collaborated with cross-functional teams, and implemented scalable solutions meeting business requirements and industry standards. Focused on full-stack development using modern technologies.',
       skills: ['MERN Stack', 'UI/UX Design', 'React.js', 'Java Spring Boot', 'Team Collaboration']
     },
     {
-      icon: <Award size={24} color="rgba(59, 130, 246, 1)" />,
+      icon: (
+        <Box
+          sx={{
+            fontSize: { xs: 20, md: 24 },
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Award size={24} color="rgba(59, 130, 246, 1)" />
+        </Box>),
       title: 'Professional Certifications',
       subtitle: 'Meta • IBM • CK-Edge',
-      duration: 'Ongoing',
+      duration: 'Completed',
       description: 'Achieved multiple industry-recognized certifications to deepen expertise in both frontend and backend development, enabling creation of robust and scalable systems.',
       skills: ['Meta Front-End', 'IBM Full-Stack JavaScript', 'CK-Edge Full-Stack', 'Continuous Learning']
     },
     {
-      icon: <Code size={24} color="rgba(139, 92, 246, 1)" />,
+      icon: (
+        <Box
+          sx={{
+            fontSize: { xs: 20, md: 24 },
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Code size={24} color="rgba(139, 92, 246, 1)" />
+        </Box>),
       title: 'Independent Projects',
       subtitle: 'Personal Work',
       duration: '10+ Projects',
