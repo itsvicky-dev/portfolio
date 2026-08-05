@@ -1,270 +1,176 @@
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, Box, Typography } from '@mui/material';
+import { useTheme } from '../context/ThemeContext';
 
-const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+const navItems = ['Home', 'About', 'Skills', 'Highlights', 'Process', 'Projects', 'Insights', 'Contact'];
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 40);
 
-      // Get current section in view
-      const sections = navItems.map(item => item.toLowerCase());
-      const sectionElements = sections.map(section =>
-        document.getElementById(section) || document.querySelector(`#${section}`)
-      );
+      const sections = navItems.map((item) => item.toLowerCase());
+      const sectionElements = sections.map((section) => document.getElementById(section));
 
-      const currentSection = sectionElements.find((section, index) => {
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
+      const currentSection = sectionElements.find((section) => {
+        if (!section) return false;
+        const rect = section.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom >= 100;
       });
 
       if (currentSection) {
-        const sectionId = currentSection.id || sections[sectionElements.indexOf(currentSection)];
-        setActiveSection(sectionId);
+        setActiveSection(currentSection.id);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   return (
-    <Box
-      sx={{
-        position: 'fixed',
-        top: '20px',
-        left: '0',
-        right: '0',
-        display: 'flex',
-        justifyContent: { xs: 'flex-end', md: 'center' },
-        alignItems: 'center',
-        zIndex: 1201,
-        paddingRight: { xs: '20px', md: '0' },
-      }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
+    <>
+      <motion.header
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="fixed inset-x-0 top-4 z-[1202] px-4"
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            background: {
-              xs: 'none',
-              md: scrolled
-                ? 'rgba(255, 255, 255, 0.1)'
-                : 'rgba(255, 255, 255, 0.05)',
-            },
-            backdropFilter: { xs: 'none', md: 'blur(20px)' },
-            border: { xs: 'none', md: '1px solid rgba(255, 255, 255, 0.2)' },
-            borderRadius: '26px',
-            px: { xs: 0, sm: 3, md: 4 },
-            py: { xs: 0, md: 0.5 },
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            position: 'relative',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: { xs: 'none', md: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)' },
-              borderRadius: 'inherit',
-              zIndex: -1,
-            },
-          }}
+        <div
+          className={`mx-auto flex max-w-[800px] items-center justify-center gap-4 rounded-full border px-3 py-2.5 transition-all duration-500 ${
+            scrolled
+              ? 'border-black/10 bg-white/90 shadow-[0_10px_40px_-14px_rgba(0,0,0,0.25)] backdrop-blur-md dark:border-white/10 dark:bg-black/85'
+              : 'border-black/10 bg-white/70 backdrop-blur-sm dark:border-white/10 dark:bg-black/50'
+          }`}
         >
-          {/* Desktop Navigation */}
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              alignItems: 'center',
-              gap: '0.25rem',
-            }}
+          {/* <a
+            href="#home"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-sm font-black text-white dark:bg-white dark:text-black"
           >
+            V
+          </a> */}
+
+          <ul className="hidden items-center gap-0.5 lg:flex">
             {navItems.map((item, index) => {
-              const isActive = activeSection === item.toLowerCase();
+              const id = item.toLowerCase();
+              const isActive = activeSection === id;
               return (
-                <motion.a
+                <motion.li
                   key={item}
-                  href={`#${item.toLowerCase()}`}
-                  initial={{ opacity: 0, y: -20 }}
+                  initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: index * 0.1 + 0.2,
-                    duration: 0.6,
-                    ease: "easeOut"
-                  }}
-                  style={{
-                    textDecoration: 'none',
-                    color: isActive ? '#fff' : 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '0.9rem',
-                    fontWeight: isActive ? 600 : 500,
-                    padding: '8px 16px',
-                    borderRadius: '30px',
-                    backgroundColor: isActive
-                      ? 'rgba(255, 255, 255, 0.12)'
-                      : 'transparent',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    position: 'relative',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#fff';
-                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                    }
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)';
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.border = '1px solid transparent';
-                      e.currentTarget.style.backdropFilter = 'none';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                  transition={{ delay: index * 0.04 + 0.15, duration: 0.5 }}
                 >
-                  {item}
-                </motion.a>
+                  <a
+                    href={`#${id}`}
+                    className={`relative block rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 ${
+                      isActive
+                        ? 'text-white dark:text-black'
+                        : 'text-wine-900/50 hover:text-black dark:text-white/50 dark:hover:text-white'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-black dark:bg-white"
+                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      />
+                    )}
+                    {item}
+                  </a>
+                </motion.li>
               );
             })}
-          </Box>
+          </ul>
 
-          {/* Mobile Menu Button */}
-
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => setIsOpen(!isOpen)}
-            sx={{
-              display: { md: 'none' },
-              color: '#fff',
-              borderRadius: '10px',
-              padding: '0',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                transform: 'scale(1.05)',
-              },
-            }}
-          >
-            <motion.div
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+          {/* <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 text-black transition-all duration-300 hover:border-black dark:border-white/15 dark:text-white dark:hover:border-white"
             >
-              {isOpen ? <X size={18} /> : <Menu size={18} />}
-            </motion.div>
-          </IconButton>
-        </Box>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex"
+                >
+                  {theme === 'dark' ? <Moon size={15} /> : <Sun size={15} />}
+                </motion.span>
+              </AnimatePresence>
+            </button>
 
-        {/* Mobile Drawer */}
-        <Drawer
-          anchor="right"
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          PaperProps={{
-            sx: {
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px)',
-              width: '280px',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '16px 0 0 16px',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-            },
-          }}
-        >
-          <Box sx={{ pt: 4, pb: 2 }}>
-            <List sx={{ px: 2 }}>
-              {navItems.map((item, index) => {
-                const isActive = activeSection === item.toLowerCase();
-                return (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: index * 0.1,
-                      duration: 0.4,
-                      ease: "easeOut"
-                    }}
-                  >
-                    <ListItem disablePadding sx={{ mb: 1 }}>
-                      <ListItemButton
-                        component="a"
-                        href={`#${item.toLowerCase()}`}
+            <button
+              onClick={() => setIsOpen((v) => !v)}
+              aria-label="Toggle menu"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 text-black transition-all duration-300 hover:border-black dark:border-white/15 dark:text-white lg:hidden"
+            >
+              <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex">
+                {isOpen ? <X size={16} /> : <Menu size={16} />}
+              </motion.span>
+            </button>
+          </div> */}
+        </div>
+      </motion.header>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-[1200] flex flex-col bg-white dark:bg-black lg:hidden"
+            initial={{ clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
+            animate={{ clipPath: 'circle(150% at calc(100% - 2.5rem) 2.5rem)' }}
+            exit={{ clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
+            transition={{ duration: 0.5, ease: [0.65, 0, 0.35, 1] }}
+          >
+            <div className="flex flex-1 flex-col justify-center px-8">
+              <ul className="flex flex-col gap-2">
+                {navItems.map((item, index) => {
+                  const id = item.toLowerCase();
+                  const isActive = activeSection === id;
+                  return (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 + 0.15, duration: 0.4 }}
+                    >
+                      <a
+                        href={`#${id}`}
                         onClick={() => setIsOpen(false)}
-                        sx={{
-                          borderRadius: '12px',
-                          py: 1.5,
-                          px: 2,
-                          border: isActive
-                            ? '1px solid rgba(255, 255, 255, 0.4)'
-                            : '1px solid transparent',
-                          backgroundColor: isActive
-                            ? 'rgba(255, 255, 255, 0.2)'
-                            : 'transparent',
-                          backdropFilter: isActive ? 'blur(10px)' : 'none',
-                          boxShadow: isActive
-                            ? '0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-                            : 'none',
-                          transform: isActive ? 'translateX(4px)' : 'translateX(0)',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            backgroundColor: isActive
-                              ? 'rgba(255, 255, 255, 0.25)'
-                              : 'rgba(255, 255, 255, 0.15)',
-                            border: '1px solid rgba(255, 255, 255, 0.3)',
-                            backdropFilter: 'blur(10px)',
-                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                            transform: 'translateX(8px)',
-                          },
-                        }}
+                        className={`block py-2 text-4xl font-black tracking-tight transition-colors duration-300 ${
+                          isActive
+                            ? 'text-black dark:text-white'
+                            : 'text-black/25 hover:text-black dark:text-white/25 dark:hover:text-white'
+                        }`}
                       >
-                        <ListItemText
-                          primary={item}
-                          primaryTypographyProps={{
-                            sx: {
-                              color: '#fff',
-                              fontWeight: isActive ? 600 : 500,
-                              fontSize: '1.1rem',
-                              textShadow: isActive
-                                ? '0 0 10px rgba(255, 255, 255, 0.5)'
-                                : '0 1px 2px rgba(0, 0, 0, 0.5)',
-                              transition: 'all 0.3s ease',
-                            },
-                          }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  </motion.div>
-                );
-              })}
-            </List>
-          </Box>
-        </Drawer>
-      </motion.div>
-    </Box>
+                        {item}
+                      </a>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
-}
+};
 
 export default Header;

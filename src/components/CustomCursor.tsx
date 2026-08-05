@@ -4,12 +4,17 @@ import { motion } from 'framer-motion';
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isCoarsePointer || prefersReduced) return;
+
+    setEnabled(true);
+
     const updateCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
-
-      // Detect if the hovered element has a pointer cursor
       const target = e.target as HTMLElement;
       setIsPointer(window.getComputedStyle(target).cursor === 'pointer');
     };
@@ -18,47 +23,30 @@ export default function CustomCursor() {
     return () => window.removeEventListener('mousemove', updateCursor);
   }, []);
 
-  return (
-    <div className='custom-cursor'>
-      <motion.div
-        className="custom-cursor-dot"
-        style={{
-          position: 'fixed',
-          width: '8px',
-          height: '8px',
-          backgroundColor: '#34d399',
-          borderRadius: '50%',
-          zIndex: 9999,
-          pointerEvents: 'none',
-        }}
-        animate={{
-          x: position.x - 4,
-          y: position.y - 4,
-          scale: isPointer ? 1.5 : 1,
-        }}
-        transition={{
-          type: 'tween',
-          duration: 0,
-        }}
-      />
+  if (!enabled) return null;
 
+  return (
+    <div className="hidden md:block">
       <motion.div
-        className="custom-cursor-ring"
-        style={{
-          position: 'fixed',
-          width: '32px',
-          height: '32px',
-          border: '2px solid #34d399',
-          borderRadius: '50%',
-          zIndex: 9998,
-          pointerEvents: 'none',
-        }}
+        className="fixed z-[9999] h-1.5 w-1.5 rounded-full bg-black dark:bg-white"
+        style={{ pointerEvents: 'none' }}
         animate={{
-          x: position.x - 16    , // Offset to center the ring
-          y: position.y - 16,
-          scale: isPointer ? 1.5 : 1, // Enlarge when hovering over pointer elements
-          rotate: 80, // Apply a rotation
+          x: position.x - 3,
+          y: position.y - 3,
+          scale: isPointer ? 0 : 1,
         }}
+        transition={{ type: 'tween', duration: 0 }}
+      />
+      <motion.div
+        className="fixed z-[9998] h-9 w-9 rounded-full border border-black/70 dark:border-white/70"
+        style={{ pointerEvents: 'none' }}
+        animate={{
+          x: position.x - 18,
+          y: position.y - 18,
+          scale: isPointer ? 1.4 : 1,
+          opacity: isPointer ? 1 : 0.55,
+        }}
+        transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.4 }}
       />
     </div>
   );

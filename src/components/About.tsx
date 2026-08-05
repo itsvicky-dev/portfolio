@@ -1,390 +1,200 @@
 import React from 'react';
-import { Box, Typography, Grid, Card, Divider, Chip } from '@mui/material';
-import { Code, Trophy, Target, Zap, TrendingUp, Award, Globe, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
-const MotionBox = motion(Box);
-// Professional Timeline Component
-const TimelineItem = ({
-  icon,
-  title,
-  subtitle,
-  duration,
-  description,
-  skills,
-  index,
-  isLast = false
-}: {
+import { Code, Trophy, Target, Award, TrendingUp, Layers } from 'lucide-react';
+
+interface TimelineEntry {
   icon: React.ReactNode;
   title: string;
   subtitle: string;
   duration: string;
-  description: string;
+  achievements: string[];
   skills: string[];
-  index: number;
-  isLast?: boolean;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, x: -50 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.2, duration: 0.6 }}
-    style={{ position: 'relative' }}
-  >
-    {/* Timeline line */}
-    {!isLast && (
-      <Box
-        sx={{
-          position: 'absolute',
-          left: { xs: '20px', md: '31px' }, // match icon center
-          top: { xs: '52px', md: '64px' },
-          bottom: '-40px',
-          width: '2px',
-          background: 'linear-gradient(to bottom, rgba(52, 211, 153, 0.5), rgba(52, 211, 153, 0.1))',
-        }}
-      />
-    )}
+  current?: boolean;
+}
 
-    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 3, mb: 6 }}>
-      {/* Timeline dot */}
-      <MotionBox
-        whileHover={{ scale: 1.1 }}
-        sx={{
-          minWidth: {xs:'40px','md':'64px'},
-          height: {xs:'40px','md':'64px'},
-          background: 'linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(59, 130, 246, 0.2))',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          border: '2px solid rgba(52, 211, 153, 0.3)',
-          position: 'relative',
-          zIndex: 1,
-          backdropFilter: 'blur(10px)',
-        }}
-      >
-        {icon}
-      </MotionBox>
+const timelineData: TimelineEntry[] = [
+  {
+    icon: <Trophy size={20} className="text-gold-600 dark:text-gold-400" />,
+    title: 'Software Developer',
+    subtitle: 'Wele Intellitech — AI-Powered Learning Platform',
+    duration: 'Nov 2025 – Present',
+    current: true,
+    achievements: [
+      'Build AI-powered features — including intelligent content assistance and personalized recommendations — for a next-generation learning management system (LMS) used by learners and instructors.',
+      'Design and develop responsive React/Next.js dashboards for learner and admin portals, turning complex LMS workflows (course delivery, quizzes, progress tracking) into clean, intuitive interfaces.',
+      'Architect and maintain RESTful APIs and backend services in Node.js/Express, integrating AI models and third-party services to power real-time platform functionality.',
+      'Deploy and manage application infrastructure on cloud platforms, collaborating cross-functionally with product and design teams in an agile environment to ship features end-to-end.',
+    ],
+    skills: ['React', 'Next.js', 'Node.js', 'Express.js', 'REST APIs', 'AI Integration', 'MongoDB', 'Cloud Deployment'],
+  },
+  {
+    icon: <Code size={20} className="text-wine-800 dark:text-parchment" />,
+    title: 'Jr Software Engineer',
+    subtitle: 'HEPL — Hemas Enterprise Private Limited',
+    duration: '2.5 Years',
+    achievements: [
+      'Developed and maintained enterprise-grade web applications on the MERN stack and Java Spring Boot, supporting systems used across cross-functional business units.',
+      'Partnered with product managers and designers to translate business requirements into scalable full-stack features, improving reliability and overall user experience.',
+      'Built responsive, accessible UI components and integrated backend APIs, strengthening end-to-end ownership from database design through deployment.',
+      'Contributed to code reviews and Agile ceremonies, helping raise team-wide standards for code quality and delivery velocity.',
+    ],
+    skills: ['MERN Stack', 'React.js', 'Java', 'Spring Boot', 'UI/UX Design', 'Agile', 'Team Collaboration'],
+  },
+  {
+    icon: <Award size={20} className="text-gold-600 dark:text-gold-400" />,
+    title: 'Professional Certifications',
+    subtitle: 'Meta • IBM • CK-Edge',
+    duration: 'Completed',
+    achievements: [
+      'Earned industry-recognized certifications from Meta, IBM, and CK-Edge, covering front-end engineering, full-stack JavaScript, and modern software development practices.',
+      'Continuously invest in professional development to stay current with evolving frontend, backend, and AI tooling.',
+    ],
+    skills: ['Meta Front-End', 'IBM Full-Stack JavaScript', 'CK-Edge Full-Stack', 'Continuous Learning'],
+  },
+  // {
+  //   icon: <Target size={20} className="text-wine-800 dark:text-parchment" />,
+  //   title: 'Independent Projects',
+  //   subtitle: 'Personal Engineering Work',
+  //   duration: '10+ Projects',
+  //   achievements: [
+  //     'Designed and shipped 10+ independent full-stack applications — from social platforms to e-commerce systems — to sharpen production-grade engineering skills outside of work.',
+  //     'Applied performance optimization, clean architecture, and modern UI/UX principles to deliver polished, real-world-ready products end-to-end.',
+  //   ],
+  //   skills: ['MERN Stack', 'API Design', 'UI/UX Design', 'Performance Optimization', 'Client Relations'],
+  // },
+];
 
-      {/* Content */}
-      <Box sx={{ flex: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
-          <Typography
-            variant="h6"
-            sx={{
-              color: 'white',
-              fontWeight: 700,
-              fontSize: '1.3rem',
-            }}
-          >
-            {title}
-          </Typography>
-          <Chip
-            label={duration}
-            size="small"
-            sx={{
-              background: 'rgba(52, 211, 153, 0.15)',
-              color: '#34d399',
-              border: '1px solid rgba(52, 211, 153, 0.3)',
-              fontWeight: 600,
-            }}
-          />
-        </Box>
+const stats = [
+  { label: 'Years of Experience', value: '3+', icon: <TrendingUp size={16} /> },
+  { label: 'Projects Delivered', value: '10+', icon: <Target size={16} /> },
+  { label: 'Technologies Mastered', value: '20+', icon: <Layers size={16} /> },
+  { label: 'Professional Certifications', value: '3', icon: <Award size={16} /> },
+];
 
-        <Typography
-          variant="subtitle1"
-          sx={{
-            color: '#34d399',
-            fontWeight: 600,
-            mb: 2,
-          }}
+function StatsPanel() {
+  return (
+    <div className="mb-20 grid grid-cols-2 border-y border-black/10 dark:border-white/10 sm:grid-cols-4">
+      {stats.map((item, index) => (
+        <motion.div
+          key={item.label}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1, duration: 0.5 }}
+          className={`group relative border-black/10 px-4 py-8 text-center transition-colors duration-300 hover:bg-black hover:text-white dark:border-white/10 dark:hover:bg-white dark:hover:text-black ${
+            index % 2 === 1 ? '' : 'border-r'
+          } ${index >= 2 ? 'border-t sm:border-t-0' : ''} sm:border-r sm:last:border-r-0`}
         >
-          {subtitle}
-        </Typography>
+          <div className="mb-2 flex justify-center text-black/40 transition-colors duration-300 group-hover:text-white dark:text-white/40 dark:group-hover:text-black">
+            {item.icon}
+          </div>
+          <div className="text-4xl font-black leading-none text-black group-hover:text-white dark:text-white dark:group-hover:text-black sm:text-5xl">
+            {item.value}
+          </div>
+          <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.15em] text-wine-900/50 group-hover:text-white/70 dark:text-stone-500 dark:group-hover:text-black/60">
+            {item.label}
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'rgba(255, 255, 255, 0.8)',
-            lineHeight: 1.7,
-            mb: 3,
-          }}
-        >
-          {description}
-        </Typography>
-
-        {/* Skills tags */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {skills.map((skill, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Chip
-                label={skill}
-                size="small"
-                sx={{
-                  background: 'rgba(59, 130, 246, 0.1)',
-                  color: '#3b82f6',
-                  border: '1px solid rgba(59, 130, 246, 0.2)',
-                  '&:hover': {
-                    background: 'rgba(59, 130, 246, 0.2)',
-                  },
-                }}
-              />
-            </motion.div>
-          ))}
-        </Box>
-      </Box>
-    </Box>
-  </motion.div>
-);
-
-// Professional Stats Panel
-const ProfessionalStatsPanel = () => {
-  const achievements = [
-    { label: 'Projects Completed', value: '10+', icon: <Target size={20} />, color: '#34d399' },
-    { label: 'Professional Certifications', value: '3', icon: <Award size={20} />, color: '#3b82f6' },
-    { label: 'Years Experience', value: '2+', icon: <TrendingUp size={20} />, color: '#8b5cf6' },
-    { label: 'Performance Boost', value: '40%', icon: <Zap size={20} />, color: '#f59e0b' },
-  ];
-
+function TimelineItem({ entry, index, isLast }: { entry: TimelineEntry; index: number; isLast: boolean }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ delay: index * 0.15, duration: 0.6 }}
+      className="relative flex gap-5 pb-14 last:pb-0 sm:gap-6"
     >
-      <Card
-        sx={{
-          background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(30, 30, 30, 0.8))',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '24px',
-          p: 4,
-          mb: 6,
-        }}
+      {!isLast && (
+        <div className="absolute left-6 top-14 h-[calc(100%-2rem)] w-px bg-gradient-to-b from-gold-500/40 to-transparent sm:left-7" />
+      )}
+
+      <motion.div
+        whileHover={{ scale: 1.08 }}
+        className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/20 bg-white sm:h-14 sm:w-14 dark:border-white/20 dark:bg-neutral-900"
       >
-        <Grid container spacing={4}>
-          {achievements.map((item, index) => (
-            <Grid item xs={6} md={3} key={index}>
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5 }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <Box
-                    sx={{
-                      color: item.color,
-                      mb: 2,
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {item.icon}
-                  </Box>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      color: 'white',
-                      fontWeight: 800,
-                      mb: 1,
-                      fontSize: { xs: '1.8rem', md: '2.2rem' },
-                    }}
-                  >
-                    {item.value}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'rgba(255, 255, 255, 0.6)',
-                      fontSize: '0.9rem',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {item.label}
-                  </Typography>
-                </Box>
-              </motion.div>
-            </Grid>
+        {entry.icon}
+      </motion.div>
+
+      <div className="flex-1 pt-1">
+        <div className="mb-1 flex flex-wrap items-center gap-2">
+          <h3 className="text-lg font-semibold text-wine-900 dark:text-parchment sm:text-xl">{entry.title}</h3>
+          <span className="chip-outline">{entry.duration}</span>
+          {entry.current && <span className="chip-solid">Current Role</span>}
+        </div>
+
+        <p className="mb-3 font-serif text-gold-700 dark:text-gold-400">{entry.subtitle}</p>
+
+        <ul className="mb-4 space-y-1.5 pl-5">
+          {entry.achievements.map((point, idx) => (
+            <li key={idx} className="list-disc text-sm leading-relaxed text-wine-900/60 marker:text-gold-500 dark:text-stone-400 sm:text-base">
+              {point}
+            </li>
           ))}
-        </Grid>
-      </Card>
+        </ul>
+
+        <div className="flex flex-wrap gap-2">
+          {entry.skills.map((skill) => (
+            <motion.span key={skill} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="chip-outline">
+              {skill}
+            </motion.span>
+          ))}
+        </div>
+      </div>
     </motion.div>
   );
-};
+}
 
-// About Component
 const About: React.FC = () => {
-  const timelineData = [
-    {
-      icon: (
-        <Box
-          sx={{
-            fontSize: { xs: 20, md: 24 },
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Trophy size="1em" color="rgba(52, 211, 153, 1)" />
-        </Box>
-      ),
-      title: 'Jr Software Engineer',
-      subtitle: 'HEPL - Hemas Enterprise Private Limited',
-      duration: '2.5 Years',
-      description: 'Led development of enterprise-level applications, collaborated with cross-functional teams, and implemented scalable solutions meeting business requirements and industry standards. Focused on full-stack development using modern technologies.',
-      skills: ['MERN Stack', 'UI/UX Design', 'React.js', 'Java Spring Boot', 'Team Collaboration']
-    },
-    {
-      icon: (
-        <Box
-          sx={{
-            fontSize: { xs: 20, md: 24 },
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Award size={24} color="rgba(59, 130, 246, 1)" />
-        </Box>),
-      title: 'Professional Certifications',
-      subtitle: 'Meta • IBM • CK-Edge',
-      duration: 'Completed',
-      description: 'Achieved multiple industry-recognized certifications to deepen expertise in both frontend and backend development, enabling creation of robust and scalable systems.',
-      skills: ['Meta Front-End', 'IBM Full-Stack JavaScript', 'CK-Edge Full-Stack', 'Continuous Learning']
-    },
-    {
-      icon: (
-        <Box
-          sx={{
-            fontSize: { xs: 20, md: 24 },
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Code size={24} color="rgba(139, 92, 246, 1)" />
-        </Box>),
-      title: 'Independent Projects',
-      subtitle: 'Personal Work',
-      duration: '10+ Projects',
-      description: 'Developed intuitive, user-friendly interfaces and full-stack applications that streamline workflows and enhance user experiences. Focus on modern tech stack and performance optimization.',
-      skills: ['MERN Stack', 'UI/UX Design', 'Performance Optimization', 'Client Relations']
-    }
-  ];
-
   return (
-    <Box
-      id="about"
-      sx={{
-        minHeight: '100vh',
-        bgcolor: 'black',
-        color: '#ccc',
-        py: 8,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Sophisticated background pattern */}
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            radial-gradient(circle at 25% 25%, rgba(52, 211, 153, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%)
-          `,
-        }}
-      />
+    <section id="about" className="relative overflow-hidden bg-white py-24 dark:bg-black sm:py-32">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="glow-blob left-1/4 top-1/4 h-[380px] w-[380px] bg-wine-400/10 dark:bg-wine-600/10" />
+        <div className="glow-blob right-1/4 bottom-1/4 h-[320px] w-[320px] bg-gold-300/10 dark:bg-gold-500/5" />
+      </div>
 
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 3, md: 4 }, position: 'relative', zIndex: 1 }}>
-        {/* Professional Header */}
+      <div className="relative mx-auto max-w-5xl px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          style={{ textAlign: 'center', marginBottom: '5rem' }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16 text-center"
         >
-          <Typography
-            variant="h6"
-            sx={{
-              color: '#34d399',
-              fontWeight: 600,
-              mb: 2,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Professional Profile
-          </Typography>
-
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #ffffff 0%, #34d399 50%, #3b82f6 100%)',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              mb: 3,
-              fontSize: { xs: '2.5rem', md: '3.8rem' },
-              letterSpacing: '-0.02em',
-            }}
-          >
-            About Me
-          </Typography>
-
-          <Typography
-            variant="h6"
-            sx={{
-              color: 'rgba(255, 255, 255, 0.7)',
-              maxWidth: '600px',
-              mx: 'auto',
-              lineHeight: 1.6,
-              fontWeight: 400,
-            }}
-          >
-            Passionate software engineer crafting innovative digital solutions with modern technologies and user-centric design principles
-          </Typography>
+          <p className="section-eyebrow mb-4 justify-center">Professional Profile</p>
+          <h2 className="font-serif text-4xl text-wine-900 dark:text-parchment sm:text-5xl">
+            About <span className="gradient-text">Me</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-wine-900/60 dark:text-stone-400 sm:text-lg">
+            Software Developer with 3+ years of experience building full-stack and AI-powered web applications — from
+            enterprise systems to a modern learning management platform — using React, Node.js, and cloud-integrated
+            architectures.
+          </p>
         </motion.div>
 
-        {/* Professional Stats Panel */}
-        <ProfessionalStatsPanel />
+        <StatsPanel />
 
-        {/* Professional Timeline */}
-        <motion.div
+        <motion.h3
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="mb-12 text-center font-serif text-3xl font-bold text-wine-900 dark:text-parchment sm:text-4xl"
         >
-          <Typography
-            variant="h4"
-            sx={{
-              color: 'white',
-              fontWeight: 700,
-              mb: 6,
-              textAlign: 'center',
-            }}
-          >
-            Professional Journey
-          </Typography>
+          How I Got Here
+        </motion.h3>
 
-          <Box sx={{ maxWidth: '900px', mx: 'auto' }}>
-            {timelineData.map((item, index) => (
-              <TimelineItem
-                key={index}
-                {...item}
-                index={index}
-                isLast={index === timelineData.length - 1}
-              />
-            ))}
-          </Box>
-        </motion.div>
-      </Box>
-    </Box>
+        <div className="mx-auto max-w-3xl">
+          {timelineData.map((entry, index) => (
+            <TimelineItem key={entry.title} entry={entry} index={index} isLast={index === timelineData.length - 1} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

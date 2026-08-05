@@ -1,133 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const LoadingScreen = () => {
+interface LoadingScreenProps {
+  onFinish: () => void;
+}
+
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      setVisible(false);
+      onFinish();
+      return;
+    }
+
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const newProgress = prev + Math.random() * 15;
-        return newProgress > 100 ? 100 : newProgress;
+        const next = prev + Math.random() * 16;
+        return next > 100 ? 100 : next;
       });
-    }, 100);
+    }, 130);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (progress === 100) {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
+      const timeout = setTimeout(() => setVisible(false), 550);
+      return () => clearTimeout(timeout);
     }
   }, [progress]);
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 50,
-        backgroundColor: 'black',
-        transition: 'transform 1s',
-        transform: isLoading ? 'translateY(0)' : 'translateY(100%)',
-      }}
-    >
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '52vw',
-            padding: '0 2rem',
-          }}
+    <AnimatePresence onExitComplete={onFinish}>
+      {visible && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-noir"
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: [0.83, 0, 0.17, 1] }}
         >
-          <div style={{ overflow: 'hidden' }}>
-            <span
-              style={{
-                display: 'block',
-                fontSize: '12vw',
-                fontWeight: '300',
-                letterSpacing: '-0.02em',
-                lineHeight: '1',
-                transform: `translateY(${progress > 0 ? '0' : '100%'})`,
-                transition: 'transform 0.5s ease-out',
-              }}
-            >
-              LOADING
-            </span>
-          </div>
+          <div className="glow-blob left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 bg-wine-600/15" />
 
-          <div
-            style={{
-              marginTop: '2rem',
-              width: '100%',
-              height: '1px',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            }}
-          >
-            <div
-              style={{
-                height: '100%',
-                backgroundColor: 'white',
-                transition: 'width 0.3s ease-out',
-                width: `${progress}%`,
-              }}
+          <div className="relative z-10 w-full max-w-md px-8 text-center">
+            <div className="overflow-hidden">
+              <motion.span
+                className="block text-5xl font-black tracking-tight text-parchment sm:text-6xl"
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: progress > 0 ? '0%' : '100%', opacity: progress > 0 ? 1 : 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              >
+                Vigneswari
+              </motion.span>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="mx-auto mt-6 h-px w-32 bg-gradient-to-r from-transparent via-gold-500/60 to-transparent"
             />
-          </div>
 
-          <div
-            style={{
-              marginTop: '1rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              fontSize: '0.875rem',
-              fontWeight: '300',
-              letterSpacing: '0.1em',
-            }}
-          >
-            <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-              INITIALIZING
-            </span>
-            <span>{Math.round(progress)}%</span>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="mt-5 text-[11px] uppercase tracking-[0.35em] text-stone-500"
+            >
+              Portfolio
+            </motion.div>
           </div>
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '2rem',
-            left: '2rem',
-            right: '2rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: '0.75rem',
-            color: 'rgba(255, 255, 255, 0.3)',
-            letterSpacing: '0.1em',
-          }}
-        >
-          <span>© {new Date().getFullYear()}</span>
-          <span style={{ animation: 'pulse 1.5s infinite' }}>
-            EXPERIENCE LOADING
-          </span>
-          <span>PORTFOLIO</span>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

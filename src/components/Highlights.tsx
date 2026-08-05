@@ -1,212 +1,189 @@
-import React from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code, Users, Award, Zap } from "lucide-react";
-import { Box } from '@mui/material';
+import { Bot, Layers, Rocket, Users, LucideIcon } from 'lucide-react';
 
-interface HighlightCardProps {
-  icon: React.ComponentType<{ style?: React.CSSProperties }>;
+interface Highlight {
+  icon: LucideIcon;
+  tag: string;
   title: string;
   description: string;
-  gradient: string;
-  index: number;
 }
 
-function HighlightCard({ icon: Icon, title, description, gradient, index }: HighlightCardProps) {
+const highlights: Highlight[] = [
+  {
+    icon: Bot,
+    tag: 'AI Engineering',
+    title: 'AI-Powered Engineering',
+    description:
+      'Building AI-driven features — content assistance, recommendations, and conversational tools — into a production learning management platform, bridging modern LLM capabilities with real-world product needs.',
+  },
+  {
+    icon: Layers,
+    tag: 'Full-Stack',
+    title: 'Full-Stack Ownership',
+    description:
+      '3+ years shipping complete features end-to-end — from React/Next.js interfaces to Node.js and Java Spring Boot APIs — across enterprise systems, an LMS platform, and 10+ independent projects.',
+  },
+  {
+    icon: Users,
+    tag: 'Collaboration',
+    title: 'Cross-Functional Collaboration',
+    description:
+      'Partner closely with product, design, and engineering teams in Agile environments, translating business requirements into scalable, maintainable software delivered on schedule.',
+  },
+  {
+    icon: Rocket,
+    tag: 'Performance',
+    title: 'Performance & Reliability',
+    description:
+      'Focused on clean architecture, API design, and cloud deployment practices that keep applications fast, reliable, and easy to extend as products grow.',
+  },
+];
+
+function AccordionPanel({
+  highlight,
+  index,
+  isActive,
+  onActivate,
+}: {
+  highlight: Highlight;
+  index: number;
+  isActive: boolean;
+  onActivate: () => void;
+}) {
+  const Icon = highlight.icon;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      style={{
-        position: 'relative',
-        borderRadius: '24px',
-        overflow: 'hidden',
-        border: '1px solid #3b82f6'
-      }}
-      className='highlights-cards'
+      onMouseEnter={onActivate}
+      onClick={onActivate}
+      animate={{ flexGrow: isActive ? 3.4 : 1 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className={`group relative flex min-w-0 cursor-pointer flex-col justify-between overflow-hidden border-r border-black/10 p-7 transition-colors duration-500 last:border-r-0 dark:border-white/10 ${
+        isActive ? 'bg-black dark:bg-white' : 'bg-white hover:bg-neutral-50 dark:bg-black dark:hover:bg-neutral-950'
+      }`}
+      style={{ flexBasis: 0 }}
     >
-      <div
-        // className='highlights-cards'
-        style={{
-          position: 'absolute',
-          inset: '0.5px',
-          background: 'linear-gradient(to right, #3b82f6, #34d399)',
-          borderRadius: '24px',
-          filter: 'blur(16px)',
-          transition: 'all 0.3s',
-        }}
-      />
-      <div
-        style={{
-          position: 'relative',
-          background: 'rgba(0, 0, 0, 0.9)',
-          borderRadius: '24px',
-          padding: '32px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(16px)',
-          height: '100%'
-        }}
-      >
-        <div
-          className="animated-gradient-orb"
-          style={{
-            position: 'absolute',
-            top: '-80px',
-            right: '-80px',
-            width: '160px',
-            height: '160px',
-            borderRadius: '50%',
-            background: gradient,
-            opacity: 0.15,
-            filter: 'blur(48px)',
-            transition: 'all 0.5s',
-          }}
+      <div className="flex items-center justify-between">
+        <span
+          className={`text-xs font-bold tracking-[0.2em] transition-colors duration-500 ${
+            isActive ? 'text-white/40 dark:text-black/40' : 'text-black/25 dark:text-white/25'
+          }`}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <Icon
+          size={22}
+          className={`shrink-0 transition-colors duration-500 ${isActive ? 'text-white dark:text-black' : 'text-black dark:text-white'}`}
         />
+      </div>
 
-        <div style={{ position: 'relative', zIndex: 10 }}>
-          <motion.div
-            style={{ marginBottom: '24px', position: 'relative' }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: 'spring', stiffness: 400 }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                // background: 'linear-gradient(to right, #11397b, #058959)',
-                background: 'transparent',
-                borderRadius: '16px',
-                filter: 'blur(4px)',
-              }}
-            />
-            <div
-              style={{
-                display: 'flex',
-                position: 'relative',
-                background: 'rgba(0, 0, 0, 0.5)',
-                padding: '16px',
-                borderRadius: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
+      <div
+        className={`mt-4 flex flex-1 flex-col overflow-hidden ${
+          isActive ? 'justify-end' : 'items-center justify-center'
+        }`}
+        style={
+          isActive
+            ? undefined
+            : {
+                maskImage: 'linear-gradient(to bottom, transparent 0, black 12%, black 88%, transparent 100%)',
+                WebkitMaskImage:
+                  'linear-gradient(to bottom, transparent 0, black 12%, black 88%, transparent 100%)',
+              }
+        }
+      >
+        {isActive ? (
+          <>
+            <motion.p
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              transition={{ duration: 0.35, delay: 0.15 }}
+              className="mb-3.5 overflow-hidden text-sm leading-relaxed text-white/70 dark:text-black/70"
             >
-              <Icon style={{ width: '32px', height: '32px', color: 'white' }} />
-              <motion.h3
-              className='highlights-title'
-                style={{
-                  margin: '0 10px',
-                  fontSize: '24px',
-                  fontWeight: 'bold',
-                  backgroundImage: gradient,
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                }}
-              >
-                {title}
-              </motion.h3>
-            </div>
-          </motion.div>
-
-
-
-          <motion.p
-            style={{ color: 'rgba(200, 200, 200, 0.9)', lineHeight: '1.5', fontSize: '14px' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+              {highlight.description}
+            </motion.p>
+            <h3 className="text-2xl font-bold leading-tight text-white dark:text-black">{highlight.title}</h3>
+          </>
+        ) : (
+          <h3
+            className="whitespace-nowrap text-2xl font-black uppercase leading-none tracking-[0.15em] text-black/25 transition-colors duration-500 group-hover:text-black/40 dark:text-white/25 dark:group-hover:text-white/40 sm:text-3xl"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
           >
-            {description}
-          </motion.p>
-        </div>
-        {/* Animated particles */}
-        {[...Array(7)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              animationDelay: `${i * 0.4}s`,
-              left: `${Math.random() * 100}%`,
-            }}
-          ></div>
-        ))}
+            {highlight.tag}
+          </h3>
+        )}
       </div>
     </motion.div>
   );
 }
 
-
-const highlights = [
-  {
-    icon: Code,
-    title: 'Innovative Solutions',
-    description:
-      'Pioneered groundbreaking solutions across 30+ projects, revolutionizing user experiences and workflow efficiency through cutting-edge UI implementations.',
-    gradient: 'linear-gradient(135deg, #6366f1, #a855f7)',
-  },
-  {
-    icon: Users,
-    title: 'Team Synergy',
-    description:
-      'Orchestrated seamless collaboration between design and development teams, fostering innovation and delivering exceptional results.',
-    gradient: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-  },
-  {
-    icon: Award,
-    title: 'Excellence Achieved',
-    description:
-      'Garnered recognition for creating high-impact, visually stunning interfaces that transformed user engagement and operational efficiency.',
-    gradient: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-  },
-  {
-    icon: Zap,
-    title: 'Performance Mastery',
-    description:
-      'Engineered high-performance solutions that significantly enhanced application speed and user experience metrics.',
-    gradient: 'linear-gradient(135deg, #6366f1, #2dd4bf)',
-  },
-];
-
-export default function HighlightsSection() {
+function HighlightCard({ highlight, index }: { highlight: Highlight; index: number }) {
+  const Icon = highlight.icon;
   return (
-    <Box id='highlights' sx={{ paddingBottom: '100px', position: 'relative', backgroundColor: '#2a2a2a !important', background: 'radial-gradient(ellipse at bottom, rgba(34, 197, 94, 0.2), rgba(59, 130, 246, 0.2), #000 70%)', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', zIndex: 10, margin: '0 auto', maxWidth: '1200px', padding: '0 16px' }}>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="border border-black/10 p-6 dark:border-white/10"
+    >
+      <div className="mb-5 flex items-center justify-between">
+        <span className="text-xs font-bold tracking-[0.2em] text-black/30 dark:text-white/30">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <Icon size={20} className="text-black dark:text-white" />
+      </div>
+      <h3 className="mb-2 text-lg font-bold text-black dark:text-white">{highlight.title}</h3>
+      <p className="text-sm leading-relaxed text-wine-900/60 dark:text-stone-400">{highlight.description}</p>
+    </motion.div>
+  );
+}
+
+export default function Highlights() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <section id="highlights" className="relative overflow-hidden bg-white py-24 dark:bg-black sm:py-32">
+      <div className="relative mx-auto max-w-6xl px-6 md:px-8">
         <motion.div
-          style={{ maxWidth: '768px', margin: '0 auto', textAlign: 'center', marginBottom: '80px' }}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto mb-14 max-w-2xl text-center"
         >
-          <motion.h2
-            style={{
-              fontSize: '48px',
-              fontWeight: 'bold',
-              marginBottom: '24px',
-              background: 'linear-gradient(to right, #34d399, #3b82f6)',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-            }}
-          >
-            Career Highlights
-          </motion.h2>
-          <motion.p
-            style={{ color: '#d1d5db', fontSize: '18px', lineHeight: '1.5' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            Transforming visions into impactful digital realities
-          </motion.p>
+          <p className="section-eyebrow mb-4 justify-center">Why Work With Me</p>
+          <h2 className="font-serif text-4xl font-bold sm:text-5xl">
+            <span className="gradient-text">Career Highlights</span>
+          </h2>
+          <p className="mt-5 text-wine-900/60 dark:text-stone-400">
+            What sets my engineering approach apart, from AI integration to production-grade delivery
+          </p>
         </motion.div>
 
         <motion.div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', gap: '32px' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="hidden h-[440px] border border-black/10 lg:flex dark:border-white/10"
         >
           {highlights.map((highlight, index) => (
-            <HighlightCard key={index} {...highlight} index={index} />
+            <AccordionPanel
+              key={highlight.title}
+              highlight={highlight}
+              index={index}
+              isActive={active === index}
+              onActivate={() => setActive(index)}
+            />
           ))}
         </motion.div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:hidden">
+          {highlights.map((highlight, index) => (
+            <HighlightCard key={highlight.title} highlight={highlight} index={index} />
+          ))}
+        </div>
       </div>
-    </Box>
+    </section>
   );
 }

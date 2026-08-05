@@ -1,596 +1,127 @@
 import { motion } from 'framer-motion';
-import { Coffee, Github, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
-import { Box, Container, Typography, Grid, IconButton, Button } from '@mui/material';
-import BackgroundAnimations from './BackgroundAnimations';
-import { useEffect, useState } from 'react';
-import LoadingScreen from './LoadingScreen';
-import GlowingOrbs from './GlowingOrbs';
-import { Code, LayoutDashboard, Rocket, Sparkles } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, ArrowRight, ArrowDown } from 'lucide-react';
+import heroImg from '../assets/images/hero-img.png';
 
-const MotionBox = motion(Box);
+const socials = [
+  { Icon: Github, href: 'https://github.com/itsvicky-dev', label: 'GitHub' },
+  { Icon: Linkedin, href: 'https://linkedin.com/in/vigneswaris', label: 'LinkedIn' },
+  { Icon: Instagram, href: 'https://instagram.com/im_vi.ki', label: 'Instagram' },
+  { Icon: Mail, href: 'mailto:vigneswari.coder@gmail.com', label: 'Email' },
+];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+};
+
 const Hero: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <>
-      <Box
-        id="home"
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          backgroundColor: '#000000 !important',
-          position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 1,
-          }
-        }}
-      >
-        {/* Enhanced glowing orbs with proper dark theme colors */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '10%',
-            left: '10%',
-            width: '350px',
-            height: '350px',
-            background: 'radial-gradient(circle, rgba(16, 217, 196, 0.12) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(50px)',
-            animation: 'float 6s ease-in-out infinite',
-            zIndex: 1,
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '60%',
-            right: '15%',
-            width: '250px',
-            height: '250px',
-            background: 'radial-gradient(circle, rgba(16, 217, 196, 0.08) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(35px)',
-            animation: 'float 8s ease-in-out infinite reverse',
-            zIndex: 1,
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: '20%',
-            left: '30%',
-            width: '180px',
-            height: '180px',
-            background: 'radial-gradient(circle, rgba(16, 217, 196, 0.1) 0%, transparent 70%)',
-            borderRadius: '50%',
-            filter: 'blur(30px)',
-            animation: 'float 7s ease-in-out infinite',
-            zIndex: 1,
-          }}
-        />
-        <Container
-          maxWidth={'xl'}
-          sx={{
-            zIndex: 10,
-            maxWidth: '1250px !important',
-            textAlign: 'left',
-            position: 'relative',
-          }}
+    <section
+      id="home"
+      className="relative flex min-h-screen items-center overflow-hidden bg-white pb-20 pt-32 dark:bg-black"
+    >
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-14 px-6 md:grid-cols-12 md:gap-8 md:px-8">
+        <div className="md:col-span-7">
+          <motion.p
+            {...fadeUp}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] text-wine-900/60 dark:text-white/50"
+          >
+            <span className="h-px w-10 bg-black dark:bg-white" />
+            Full Stack Developer
+          </motion.p>
+
+          <motion.h1
+            {...fadeUp}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="whitespace-nowrap font-sans text-4xl font-black leading-[0.95] tracking-tight text-black dark:text-white sm:text-6xl md:text-7xl lg:text-8xl"
+          >
+            Vigneswari
+          </motion.h1>
+
+          <motion.p
+            {...fadeUp}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="mt-8 max-w-lg text-base leading-relaxed text-wine-900/60 dark:text-stone-400 sm:text-lg"
+          >
+            I build full-stack and AI-powered web applications — <strong className="font-semibold text-black dark:text-white">3+ years</strong> shipping
+            production software with React, Node.js, and cloud-native architectures.
+          </motion.p>
+
+          <motion.div
+            {...fadeUp}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
+          >
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-primary group">
+              Resume
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+            <button
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="btn-ghost group"
+            >
+              View Work
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </motion.div>
+
+          <motion.div
+            {...fadeUp}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mt-10 flex items-center gap-3"
+          >
+            {socials.map(({ Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-black/15 text-black transition-all duration-300 hover:border-black hover:bg-black hover:text-white dark:border-white/15 dark:text-white dark:hover:border-white dark:hover:bg-white dark:hover:text-black"
+              >
+                <Icon size={16} />
+              </a>
+            ))}
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.7 }}
+          className="relative md:col-span-5"
         >
-          <Grid container spacing={2} className='hero-grid'>
-            <Grid item xs={12} md={10}>
-              <Box >
-                {/* Greeting */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: '#10d9c4',
-                      mb: 2,
-                      fontWeight: 500,
-                      textShadow: '0 0 20px rgba(16, 217, 196, 0.3)',
-                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
-                    }}
-                  >
-                    👋 Hello, I'm
-                  </Typography>
-                </motion.div>
+          <div className="group relative mx-auto aspect-[4/5] w-full max-w-sm bg-neutral-100 dark:border-white/10 dark:bg-neutral-950">
+            <img
+              src={heroImg}
+              alt="Portrait of Vigneswari"
+              className="h-full w-full object-cover grayscale "
+            />
+            <span className="pointer-events-none absolute inset-0 border border-black/0 transition-all duration-500 ease-out group-hover:-top-2 group-hover:-left-3 group-hover:bottom-2 group-hover:right-3 group-hover:border-black/40 dark:group-hover:border-white/40" />
+            <span className="pointer-events-none absolute inset-0 border border-black/0 transition-all delay-100 duration-700 ease-out group-hover:top-2 group-hover:left-2 group-hover:-bottom-3 group-hover:-right-1 group-hover:border-black/25 dark:group-hover:border-white/25" />
+          </div>
+          {/* <span className="absolute -bottom-4 left-1/2 w-max -translate-x-1/2 whitespace-nowrap border border-black bg-white px-5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-black dark:border-white dark:bg-black dark:text-white sm:text-xs sm:tracking-[0.2em]">
+            Let&apos;s Build Something
+          </span> */}
+        </motion.div>
+      </div>
 
-                {/* Name */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <Typography
-                    variant="h2"
-                    className='hero-name'
-                    sx={{
-                      fontWeight: 800,
-                      color: '#ffffff', // Fallback color for dark background
-                      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      mb: 3,
-                      fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '6rem' },
-                      textShadow: '0 4px 20px rgba(255, 255, 255, 0.15)',
-                      letterSpacing: '-0.02em',
-                    }}
-                  >
-                    Vigneswari
-                  </Typography>
-                </motion.div>
-
-                {/* Subtitle */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  <Typography
-                    variant="h4"
-                    className='hero-desc'
-                    sx={{
-                      color: '#a8b2b9',
-                      mb: 3,
-                      fontWeight: 400,
-                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.3rem' },
-                    }}
-                  >
-                    Full Stack Developer & UI/UX Enthusiast
-                  </Typography>
-                  <Typography
-                    variant="h1"
-                    className='hero-title'
-                    sx={{
-                      color: '#ffffff',
-                      fontSize: { xs: '1.5rem', sm: '2rem', md: '2.4rem', lg: '2.7rem' },
-                      fontWeight: '600',
-                      mb: 5,
-                      lineHeight: 1.2,
-                      '& span': {
-                        background: 'linear-gradient(135deg, #10d9c4 0%, #34d399 100%)',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        textShadow: '0 0 30px rgba(16, 217, 196, 0.3)',
-                      }
-                    }}
-                  >
-                    Crafting Digital
-                    <span>{" "}Experiences{" "}</span>
-                    Through Code
-                  </Typography>
-
-                  {/* New tagline */}
-                  <Box
-                    sx={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      backgroundColor: 'rgba(16, 217, 196, 0.1)',
-                      border: '1px solid rgba(16, 217, 196, 0.2)',
-                      borderRadius: '50px',
-                      padding: '8px 20px',
-                      mb: 4,
-                      backdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: '#10d9c4',
-                        fontSize: '0.9rem',
-                        fontWeight: 500,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 1,
-                      }}
-                    >
-                      ✨ Available for new opportunities
-                    </Typography>
-                  </Box>
-
-                </motion.div>
-
-                {/* Social Links */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  <Grid container justifyContent="left" spacing={1}>
-                    {[
-                      { Icon: Github, href: 'https://github.com/itsvicky-dev', label: 'GitHub' },
-                      { Icon: Linkedin, href: 'https://linkedin.com/in/vigneswaris', label: 'LinkedIn' },
-                      { Icon: Instagram, href: 'https://instagram.com/im_vi.ki', label: 'Instagram' },
-                      { Icon: Mail, href: 'mailto:contact@vigneswaris2002@gmail.com', label: 'Email' },
-                    ].map(({ Icon, href, label }, index) => (
-                      <Grid item key={index}>
-                        <IconButton
-                          component="a"
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{
-                            color: '#a8b2b9',
-                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            borderRadius: '12px',
-                            width: '48px',
-                            height: '48px',
-                            margin: '0 8px',
-                            transition: 'all 0.3s ease',
-                            backdropFilter: 'blur(10px)',
-                            '&:hover': {
-                              color: '#10d9c4',
-                              backgroundColor: 'rgba(16, 217, 196, 0.1)',
-                              borderColor: 'rgba(16, 217, 196, 0.3)',
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 8px 25px rgba(16, 217, 196, 0.2)',
-                            },
-                          }}
-                        >
-                          <Icon size={20} />
-                        </IconButton>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0 }}
-                >
-                  <Box sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    gap: { xs: 1.5, sm: 2 },
-                    mt: 4,
-                    alignItems: { xs: 'stretch', sm: 'center' }
-                  }}>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        background: 'linear-gradient(135deg, #10d9c4 0%, #34d399 100%)',
-                        color: '#000',
-                        borderRadius: '50px',
-                        px: { xs: 3, sm: 4 },
-                        py: { xs: 1.2, sm: 1.5 },
-                        fontWeight: 600,
-                        textTransform: 'none',
-                        fontSize: { xs: '0.9rem', sm: '1rem' },
-                        boxShadow: '0 8px 25px rgba(16, 217, 196, 0.3)',
-                        border: 'none',
-                        minHeight: { xs: '44px', sm: '48px' },
-                        '&:hover': {
-                          background: 'linear-gradient(135deg, #0ec5b8 0%, #2dd284 100%)',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 12px 35px rgba(16, 217, 196, 0.4)',
-                        },
-                      }}
-                      component="a"
-                      target='_blank'
-                      href="resume.pdf"
-                    >
-                      Check Out My Resume
-                    </Button>
-
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      sx={{
-                        borderColor: 'rgba(255, 255, 255, 0.2)',
-                        color: '#ffffff',
-                        borderRadius: '50px',
-                        px: { xs: 3, sm: 4 },
-                        py: { xs: 1.2, sm: 1.5 },
-                        fontWeight: 500,
-                        textTransform: 'none',
-                        fontSize: { xs: '0.9rem', sm: '1rem' },
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        minHeight: { xs: '44px', sm: '48px' },
-                        '&:hover': {
-                          borderColor: '#10d9c4',
-                          color: '#10d9c4',
-                          backgroundColor: 'rgba(16, 217, 196, 0.1)',
-                          transform: 'translateY(-2px)',
-                        },
-                      }}
-                      onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      View My Work
-                    </Button>
-                  </Box>
-                </motion.div>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              {/* <Box
-                    sx={{
-                      position: "absolute",
-                      top: "5rem",
-                      right: "5rem",
-                      width: "16rem",
-                      height: "16rem",
-                      backgroundColor: "rgba(16, 185, 129, 0.1)", // emerald-400/10
-                      borderRadius: "50%",
-                      animation: "pulse 2s infinite",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "10rem",
-                      right: "10rem",
-                      width: "12rem",
-                      height: "12rem",
-                      backgroundColor: "rgba(16, 185, 129, 0.2)", // emerald-400/20
-                      borderRadius: "50%",
-                      animation: "pulse 2s infinite 300ms",
-                    }}
-                  /> */}
-
-              {/* Enhanced Floating Icons */}
-              <Box
-                position="relative"
-                zIndex={10}
-                sx={{
-                  '& > *': {
-                    filter: 'drop-shadow(0 4px 12px rgba(16, 217, 196, 0.3))',
-                  }
-                }}
-              >
-                <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "0",
-                    right: "-10px",
-                  }}
-                >
-                  <Code
-                    style={{
-                      color: "#10d9c4",
-                      width: "2.5rem",
-                      height: "2.5rem",
-                    }}
-                  />
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, -15, 0],
-                    x: [0, 5, 0]
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "7rem",
-                    right: "17rem",
-                  }}
-                >
-                  <LayoutDashboard
-                    style={{
-                      color: "#10d9c4",
-                      width: "2.5rem",
-                      height: "2.5rem",
-                    }}
-                  />
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, -12, 0],
-                    rotate: [0, -8, 0]
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "17rem",
-                    right: "-2rem",
-                  }}
-                >
-                  <Rocket
-                    style={{
-                      color: "#10d9c4",
-                      width: "2.5rem",
-                      height: "2.5rem",
-                    }}
-                  />
-                </motion.div>
-
-                <MotionBox
-                  animate={{
-                    y: [0, -8, 0],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1.5
-                  }}
-                  sx={{
-                    position: "absolute",
-                    top: { xs: "-1rem", md: "-4rem" },
-                    right: "12rem",
-                  }}
-                >
-                  <Sparkles
-                    style={{
-                      color: "#10d9c4",
-                      width: "2.5rem",
-                      height: "2.5rem",
-                    }}
-                  />
-                </MotionBox>
-
-                <motion.div
-                  animate={{
-                    y: [0, -14, 0],
-                    x: [0, -3, 0]
-                  }}
-                  transition={{
-                    duration: 4.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "22rem",
-                    right: "13rem",
-                  }}
-                >
-                  <Coffee
-                    style={{
-                      color: "#10d9c4",
-                      width: "2.5rem",
-                      height: "2.5rem",
-                    }}
-                  />
-                </motion.div>
-              </Box>
-
-              {/* Mac-style Code Snippet Decoration */}
-              {/* <Box
-                className='code-snippet'
-                sx={{
-                  position: "absolute",
-                  top: "55%",
-                  right: "8%",
-                  transform: "translateY(-50%)",
-                  backgroundColor: "rgb(40, 44, 52)",
-                  borderRadius: "8px",
-                  backdropFilter: "blur(8px)",
-                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  overflow: "hidden",
-                  minWidth: "300px"
-                }}
-              >
-                <Box
-                  sx={{
-                    backgroundColor: "rgb(55, 59, 69)",
-                    padding: "12px 16px",
-                    display: "flex",
-                    alignItems: "center",
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
-                  }}
-                >
-                  <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                    <Box
-                      sx={{
-                        width: "12px",
-                        height: "12px",
-                        borderRadius: "50%",
-                        backgroundColor: "#ff5f57",
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: "#ff4136" }
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        width: "12px",
-                        height: "12px",
-                        borderRadius: "50%",
-                        backgroundColor: "#ffbd2e",
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: "#ff851b" }
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        width: "12px",
-                        height: "12px",
-                        borderRadius: "50%",
-                        backgroundColor: "#28ca42",
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: "#2ecc40" }
-                      }}
-                    />
-                  </Box>
-                  
-                  <Typography
-                    sx={{
-                      color: "rgba(255, 255, 255, 0.7)",
-                      fontSize: "13px",
-                      fontFamily: "SF Pro Display, -apple-system, sans-serif",
-                      fontWeight: 500,
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      position: "absolute",
-                      left: "50%",
-                      transform: "translateX(-50%)"
-                    }}
-                  >
-                    developer.js
-                  </Typography>
-                </Box>
-
-                <Box sx={{ padding: "16px 20px" }}>
-                  <pre style={{ 
-                    fontSize: "14px", 
-                    color: "#abb2bf",
-                    fontFamily: "Fira Code, Monaco, Consolas, monospace",
-                    margin: 0,
-                    lineHeight: 1.5
-                  }}>
-                    <code>{`const developer = {
-  name: 'Vigneswari',
-  skills: ['React', 'Java', 'UI/UX'],
-  passion: 'Building web magic',
-  coffee: Infinity
-};`}</code>
-                  </pre>
-                </Box>
-              </Box> */}
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </>
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.6 }}
+        onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+        aria-label="Scroll to About"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-wine-900/40 transition-colors hover:text-black dark:text-white/40 dark:hover:text-white sm:flex"
+      >
+        <span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span>
+        <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
+          <ArrowDown size={14} />
+        </motion.span>
+      </motion.button>
+    </section>
   );
-}
+};
 
 export default Hero;

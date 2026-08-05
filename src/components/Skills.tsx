@@ -1,437 +1,119 @@
-import React from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Box, Typography } from '@mui/material';
-// We'll use actual brand icons for each technology
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { Bot, Workflow, Sparkles, Webhook, GitBranch } from 'lucide-react';
 
-// Technology stacks organized by category with real brand icons
-const techStacks = {
+interface Tech {
+  name: string;
+  icon: ReactNode;
+  invertOnDark?: boolean;
+}
+
+const devicon = (slug: string, alt: string) => (
+  <img
+    src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${slug}/${slug}-original.svg`}
+    alt={alt}
+    width={24}
+    height={24}
+    loading="lazy"
+  />
+);
+
+const techStacks: Record<string, Tech[]> = {
   Frontend: [
-    {
-      name: 'JavaScript',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-          alt="JavaScript"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'TypeScript',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-          alt="TypeScript"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'React',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-          alt="React"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Next.js',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-          alt="Next.js"
-          width={32}
-          height={32}
-          style={{ filter: 'invert(1)' }}
-        />
-      )
-    },
-    {
-      name: 'Redux',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg"
-          alt="Redux"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Tailwind CSS',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-          alt="Tailwind CSS"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Material-UI',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg"
-          alt="Material-UI"
-          width={32}
-          height={32}
-        />
-      )
-    },
+    { name: 'JavaScript', icon: devicon('javascript', 'JavaScript') },
+    { name: 'TypeScript', icon: devicon('typescript', 'TypeScript') },
+    { name: 'React', icon: devicon('react', 'React') },
+    { name: 'Next.js', icon: devicon('nextjs', 'Next.js'), invertOnDark: true },
+    { name: 'Redux', icon: devicon('redux', 'Redux') },
+    { name: 'Tailwind CSS', icon: devicon('tailwindcss', 'Tailwind CSS') },
+    { name: 'Material-UI', icon: devicon('materialui', 'Material-UI') },
   ],
   Backend: [
-    // {
-    //   name: 'Java',
-    //   icon: (
-    //     <img
-    //       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-    //       alt="Java"
-    //       width={32}
-    //       height={32}
-    //     />
-    //   )
-    // },
-    // {
-    //   name: 'Spring Boot',
-    //   icon: (
-    //     <img
-    //       src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
-    //       alt="Spring Boot"
-    //       width={32}
-    //       height={32}
-    //     />
-    //   )
-    // },
-    {
-      name: 'Node.js',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-          alt="Node.js"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Express.js',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
-          alt="Express.js"
-          width={32}
-          height={32}
-          style={{ filter: 'invert(1)' }}
-        />
-      )
-    },
+    { name: 'Node.js', icon: devicon('nodejs', 'Node.js') },
+    { name: 'Express.js', icon: devicon('express', 'Express.js'), invertOnDark: true },
+    // { name: 'Java', icon: devicon('java', 'Java') },
+    // { name: 'Spring Boot', icon: devicon('spring', 'Spring Boot') },
+    { name: 'REST APIs', icon: <Webhook size={24} className="text-black dark:text-white" /> },
   ],
-  Database: [
-    {
-      name: 'MySQL',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-          alt="MySQL"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'MongoDB',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-          alt="MongoDB"
-          width={32}
-          height={32}
-        />
-      )
-    },
+  'AI & ML': [
+    { name: 'OpenAI API', icon: <Bot size={24} className="text-black dark:text-white" /> },
+    // { name: 'LangChain', icon: <Workflow size={24} className="text-black dark:text-white" /> },
+    { name: 'Prompt Engineering', icon: <Sparkles size={24} className="text-black dark:text-white" /> },
+  ],
+  'Databases & Cloud': [
+    { name: 'MySQL', icon: devicon('mysql', 'MySQL') },
+    { name: 'MongoDB', icon: devicon('mongodb', 'MongoDB') },
+    { name: 'Microsoft Azure', icon: devicon('azure', 'Microsoft Azure') },
+    { name: 'Docker', icon: devicon('docker', 'Docker') },
+    { name: 'Git', icon: devicon('git', 'Git') },
+    { name: 'CI/CD Pipelines', icon: <GitBranch size={24} className="text-black dark:text-white" /> },
   ],
   Tools: [
-    {
-      name: 'Git',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-          alt="Git"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Docker',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
-          alt="Docker"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Azure',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"
-          alt="Azure"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'VS Code',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"
-          alt="VS Code"
-          width={32}
-          height={32}
-        />
-      )
-    },
-    {
-      name: 'Figma',
-      icon: (
-        <img
-          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
-          alt="Figma"
-          width={32}
-          height={32}
-        />
-      )
-    },
+    { name: 'VS Code', icon: devicon('vscode', 'VS Code') },
+    { name: 'Figma', icon: devicon('figma', 'Figma') },
+    { name: 'Postman', icon: devicon('postman', 'Postman') },
   ],
 };
 
-interface TechItemProps {
-  name: string;
-  icon: React.ReactNode;
-  index: number;
+const rows = Object.entries(techStacks);
+
+function TechPill({ tech }: { tech: Tech }) {
+  return (
+    <div className="flex shrink-0 items-center gap-2.5 border border-black/10 bg-white px-4 py-2.5 dark:border-white/10 dark:bg-black">
+      <div className={`flex h-6 w-6 items-center justify-center ${tech.invertOnDark ? 'dark:invert' : ''}`}>{tech.icon}</div>
+      <span className="whitespace-nowrap text-sm font-semibold text-black dark:text-white">{tech.name}</span>
+    </div>
+  );
 }
 
-function TechItem({ name, icon, index }: TechItemProps) {
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-20px" });
-
+function SkillRow({ category, techs, index }: { category: string; techs: Tech[]; index: number }) {
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{
-        duration: 0.4,
-        delay: index * 0.05,
-        ease: "easeOut"
-      }}
-      whileHover={{
-        y: -2,
-        transition: { duration: 0.15 }
-      }}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        padding: '16px',
-        cursor: 'pointer',
-        backgroundColor: 'rgba(255, 255, 255, 0.03)',
-        borderRadius: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        transition: 'all 0.2s ease',
-      }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="flex flex-col gap-4 border-t border-black/10 py-4 first:border-t-0 dark:border-white/10 sm:flex-row sm:items-center sm:gap-6"
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '32px',
-          height: '32px',
-          transition: 'transform 0.15s ease',
-          '&:hover': {
-            transform: 'scale(1.05)',
-          },
-        }}
-      >
-        {icon}
-      </Box>
-      <Typography
-        variant="body1"
-        sx={{
-          color: 'rgba(255, 255, 255, 0.9)',
-          fontWeight: 500,
-          fontSize: '14px',
-          lineHeight: 1.4,
-          transition: 'color 0.15s ease',
-          '&:hover': {
-            color: 'white',
-          },
-        }}
-      >
-        {name}
-      </Typography>
+      <span className="w-32 shrink-0 text-xs font-bold uppercase tracking-[0.15em] text-black/40 dark:text-white/40 sm:w-40">
+        {category}
+      </span>
+
+      <div className="flex flex-1 flex-wrap gap-3">
+        {techs.map((tech) => (
+          <TechPill key={tech.name} tech={tech} />
+        ))}
+      </div>
     </motion.div>
   );
 }
 
-interface TechCategoryProps {
-  title: string;
-  technologies: Array<{ name: string; icon: React.ReactNode }>;
-  index: number;
-}
-
-function TechCategory({ title, technologies, index }: TechCategoryProps) {
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
-
+export default function Skills() {
   return (
-    <Box
-      ref={ref}
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '200px 1fr' },
-        gap: { xs: 2, md: 6 },
-        mb: 8,
-        alignItems: 'start',
-      }}
-    >
-      {/* Category Title - Left Side */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            color: 'rgba(255, 255, 255, 0.9)',
-            fontSize: { xs: '1.5rem', md: '2rem' },
-            fontWeight: 600,
-            letterSpacing: '0.5px',
-            mb: { xs: 2, md: 0 },
-          }}
+    <section id="skills" className="relative overflow-hidden bg-neutral-50 py-24 dark:bg-black sm:py-32">
+      <div className="mx-auto max-w-5xl px-6 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: -24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-14 text-center"
         >
-          {title}
-        </Typography>
-      </motion.div>
+          <p className="section-eyebrow mb-4 justify-center">Toolkit</p>
+          <h2 className="font-serif text-4xl font-bold sm:text-5xl">
+            <span className="gradient-text">Technical Expertise</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-wine-900/60 dark:text-stone-400">
+            A production-tested toolkit spanning full-stack development, cloud deployment, and AI integration
+          </p>
+        </motion.div>
 
-      {/* Technologies - Right Side in Grid */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            sm: 'repeat(2, 1fr)',
-            md: 'repeat(3, 1fr)',
-            lg: 'repeat(4, 1fr)'
-          },
-          gap: 2,
-        }}
-      >
-        {technologies.map((tech, techIndex) => (
-          <TechItem
-            key={tech.name}
-            name={tech.name}
-            icon={tech.icon}
-            index={techIndex}
-          />
-        ))}
-      </Box>
-    </Box>
-  );
-}
-
-
-export default function SkillsSection() {
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
-
-  // Scroll-based animation
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
-
-  return (
-    <Box
-      ref={ref}
-      id='skills'
-      sx={{
-        backgroundColor: '#000000',
-        position: 'relative',
-        color: 'white',
-        minHeight: '100vh',
-        overflow: 'hidden',
-      }}
-    >
-
-      <Box sx={{ maxWidth: '1000px', mx: 'auto', px: { xs: 3, md: 4 }, position: 'relative', zIndex: 1 }}>
-        {/* Header */}
-        <Box sx={{ mb: { xs: 6, md: 10 } }}>
-          <motion.div
-            initial={{ opacity: 0, y: -30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-            transition={{ duration: 0.8 }}
-            style={{ textAlign: 'center', marginBottom: '4rem' }}
-          >
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                fontWeight: 800,
-                background: 'linear-gradient(to right, #34d399, #3b82f6)',
-                // background: 'linear-gradient(to right, #6366F1, #8B5CF6, #EC4899)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                mb: 2,
-              }}
-            >
-              Technical Expertise
-            </Typography>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              style={{
-                height: '4px',
-                background: 'linear-gradient(90deg, #34d399, #3b82f6)',
-                borderRadius: '2px',
-                width: '100px',
-                margin: '0 auto 2rem',
-              }}
-            />
-            <Typography variant="body1" sx={{ color: 'gray' }}>
-              Crafting digital experiences with cutting-edge technologies
-            </Typography>
-          </motion.div>
-        </Box>
-
-        {/* Tech Stack Categories */}
-        <Box>
-          {Object.entries(techStacks).map(([category, technologies], index) => (
-            <TechCategory
-              key={category}
-              title={category}
-              technologies={technologies}
-              index={index}
-            />
+        <div className="border-b border-black/10 dark:border-white/10">
+          {rows.map(([category, techs], index) => (
+            <SkillRow key={category} category={category} techs={techs} index={index} />
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </section>
   );
 }
