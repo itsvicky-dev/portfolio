@@ -20,7 +20,7 @@ function App() {
   return (
     <ThemeProvider>
       <ToastContainer />
-      {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+      {/* {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />} */}
       <div className="relative min-h-screen bg-white text-slate-700 dark:bg-slate-950 dark:text-slate-300 transition-colors duration-500 md:cursor-none">
         <CustomCursor />
         <Header />
