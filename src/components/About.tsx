@@ -38,7 +38,7 @@ const timelineData: TimelineEntry[] = [
       'Built responsive, accessible UI components and integrated backend APIs, strengthening end-to-end ownership from database design through deployment.',
       'Contributed to code reviews and Agile ceremonies, helping raise team-wide standards for code quality and delivery velocity.',
     ],
-    skills: ['MERN Stack', 'React.js', 'Java', 'Spring Boot', 'UI/UX Design', 'Agile', 'Team Collaboration'],
+    skills: ['MERN Stack', 'React.js', 'UI/UX Design', 'Agile', 'Team Collaboration'],
   },
   {
     icon: <Award size={20} className="text-gold-600 dark:text-gold-400" />,
@@ -81,17 +81,17 @@ function StatsPanel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.1, duration: 0.5 }}
-          className={`group relative border-black/10 px-4 py-8 text-center transition-colors duration-300 hover:bg-black hover:text-white dark:border-white/10 dark:hover:bg-white dark:hover:text-black ${
+          className={`group relative border-black/10 px-4 py-8 text-center transition-colors duration-300 ${
             index % 2 === 1 ? '' : 'border-r'
           } ${index >= 2 ? 'border-t sm:border-t-0' : ''} sm:border-r sm:last:border-r-0`}
         >
-          <div className="mb-2 flex justify-center text-black/40 transition-colors duration-300 group-hover:text-white dark:text-white/40 dark:group-hover:text-black">
+          {/* <div className="mb-2 flex justify-center text-black/40 transition-colors duration-300 group-hover:text-white dark:text-white/40 dark:group-hover:text-black">
             {item.icon}
-          </div>
-          <div className="text-4xl font-black leading-none text-black group-hover:text-white dark:text-white dark:group-hover:text-black sm:text-5xl">
+          </div> */}
+          <div className="text-4xl font-black leading-none text-black dark:text-white dark:group-hover:text-black sm:text-5xl">
             {item.value}
           </div>
-          <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.15em] text-wine-900/50 group-hover:text-white/70 dark:text-stone-500 dark:group-hover:text-black/60">
+          <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.15em] text-wine-900/50/70 dark:text-stone-500 dark:group-hover:text-black/60">
             {item.label}
           </div>
         </motion.div>

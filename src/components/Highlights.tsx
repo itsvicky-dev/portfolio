@@ -22,7 +22,7 @@ const highlights: Highlight[] = [
     tag: 'Full-Stack',
     title: 'Full-Stack Ownership',
     description:
-      '3+ years shipping complete features end-to-end — from React/Next.js interfaces to Node.js and Java Spring Boot APIs — across enterprise systems, an LMS platform, and 10+ independent projects.',
+      '3+ years shipping complete features end-to-end — from React/Next.js interfaces to Node.js APIs — across enterprise systems, an LMS platform, and 10+ independent projects.',
   },
   {
     icon: Users,

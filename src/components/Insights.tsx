@@ -12,7 +12,7 @@ const posts = [
     icon: Layers,
     title: 'Full-Stack Architecture Choices That Age Well',
     excerpt:
-      'How I decide between React/Next.js, Node.js, and Java Spring Boot depending on the shape of the problem, not just habit.',
+      'How I decide between React/Next.js, Node.js depending on the shape of the problem, not just habit.',
   },
   {
     icon: Gauge,

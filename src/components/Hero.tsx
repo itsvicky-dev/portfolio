@@ -98,8 +98,8 @@ const Hero: React.FC = () => {
               alt="Portrait of Vigneswari"
               className="h-full w-full object-cover grayscale "
             />
-            <span className="pointer-events-none absolute inset-0 border border-black/0 transition-all duration-500 ease-out group-hover:-top-2 group-hover:-left-3 group-hover:bottom-2 group-hover:right-3 group-hover:border-black/40 dark:group-hover:border-white/40" />
-            <span className="pointer-events-none absolute inset-0 border border-black/0 transition-all delay-100 duration-700 ease-out group-hover:top-2 group-hover:left-2 group-hover:-bottom-3 group-hover:-right-1 group-hover:border-black/25 dark:group-hover:border-white/25" />
+            <span className="pointer-events-none absolute -top-1.5 -left-3 bottom-1.5 right-3 border border-black/30 transition-all duration-500 ease-out group-hover:-top-3 group-hover:-left-4 group-hover:bottom-3 group-hover:right-4 group-hover:border-black/50 dark:border-white/30 dark:group-hover:border-white/50" />
+            <span className="pointer-events-none absolute top-1.5 left-1.5 -bottom-2.5 -right-1 border border-black/15 transition-all delay-100 duration-700 ease-out group-hover:top-3 group-hover:left-3 group-hover:-bottom-4 group-hover:-right-2 group-hover:border-black/30 dark:border-white/15 dark:group-hover:border-white/30" />
           </div>
           {/* <span className="absolute -bottom-4 left-1/2 w-max -translate-x-1/2 whitespace-nowrap border border-black bg-white px-5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-black dark:border-white dark:bg-black dark:text-white sm:text-xs sm:tracking-[0.2em]">
             Let&apos;s Build Something
