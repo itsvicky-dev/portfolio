@@ -38,7 +38,7 @@ const timelineData: TimelineEntry[] = [
       'Built responsive, accessible UI components and integrated backend APIs, strengthening end-to-end ownership from database design through deployment.',
       'Contributed to code reviews and Agile ceremonies, helping raise team-wide standards for code quality and delivery velocity.',
     ],
-    skills: ['MERN Stack', 'React.js', 'UI/UX Design', 'Agile', 'Team Collaboration'],
+    skills: ['MERN Stack', 'UI/UX Design', 'Agile', 'Team Collaboration'],
   },
   {
     icon: <Award size={20} className="text-gold-600 dark:text-gold-400" />,

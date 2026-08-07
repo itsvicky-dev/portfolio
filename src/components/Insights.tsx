@@ -1,36 +1,19 @@
 import { motion } from 'framer-motion';
-import { Bot, Layers, Gauge, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { posts as blogPosts, type Post } from '../data/posts';
 
-const posts = [
-  {
-    icon: Bot,
-    title: 'Building AI Features Into a Production LMS',
-    excerpt:
-      'Notes on integrating AI-powered content assistance and recommendations into a real learning management platform — what worked, what didn’t.',
-  },
-  {
-    icon: Layers,
-    title: 'Full-Stack Architecture Choices That Age Well',
-    excerpt:
-      'How I decide between React/Next.js, Node.js depending on the shape of the problem, not just habit.',
-  },
-  {
-    icon: Gauge,
-    title: 'Performance Budgets for Real-World React Apps',
-    excerpt:
-      'Practical techniques for keeping full-stack applications fast and reliable as they grow past the prototype stage.',
-  },
+type InsightItem =
+  | (Pick<Post, 'icon' | 'title' | 'excerpt'> & { slug: string })
+  | (Pick<Post, 'icon' | 'title' | 'excerpt'> & { slug: null });
+
+const items: InsightItem[] = [
+  ...blogPosts.map(({ icon, title, excerpt, slug }) => ({ icon, title, excerpt, slug })),
 ];
 
-function PostRow({ post, index }: { post: (typeof posts)[number]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-6 border-t border-black/10 py-7 transition-colors duration-300 last:border-b hover:bg-black dark:border-white/10 hover:dark:bg-white sm:gap-8 sm:px-6"
-    >
+function PostRow({ post, index }: { post: InsightItem; index: number }) {
+  const content = (
+    <>
       <span className="hidden text-sm font-bold text-black/25 transition-colors duration-300 group-hover:text-white/40 dark:text-white/25 dark:group-hover:text-black/40 sm:block">
         {String(index + 1).padStart(2, '0')}
       </span>
@@ -51,13 +34,33 @@ function PostRow({ post, index }: { post: (typeof posts)[number]; index: number 
 
       <div className="flex items-center gap-3">
         <span className="chip-outline hidden transition-colors duration-300 group-hover:border-white/30 group-hover:text-white/60 dark:group-hover:border-black/30 dark:group-hover:text-black/60 sm:inline-flex">
-          Coming Soon
+          {post.slug ? 'Read note' : 'Coming Soon'}
         </span>
         <ArrowUpRight
           size={20}
           className="-translate-x-1 text-black/0 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-white group-hover:opacity-100 dark:group-hover:text-black"
         />
       </div>
+    </>
+  );
+
+  const className =
+    'group relative grid grid-cols-[auto_1fr_auto] items-center gap-6 border-t border-black/10 py-7 transition-colors duration-300 last:border-b hover:bg-black dark:border-white/10 hover:dark:bg-white sm:gap-8 sm:px-6';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      {post.slug ? (
+        <Link to={`/insights/${post.slug}`} className={className}>
+          {content}
+        </Link>
+      ) : (
+        <div className={className}>{content}</div>
+      )}
     </motion.div>
   );
 }
@@ -83,7 +86,7 @@ export default function Insights() {
         </motion.div>
 
         <div>
-          {posts.map((post, index) => (
+          {items.map((post, index) => (
             <PostRow key={post.title} post={post} index={index} />
           ))}
         </div>
